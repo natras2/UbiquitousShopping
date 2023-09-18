@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/UbiquitousShopping/static/css/main.073c9b0a.css",
+    "main.js": "/UbiquitousShopping/static/js/main.a9c1a35e.js",
+    "static/js/787.f970bdac.chunk.js": "/UbiquitousShopping/static/js/787.f970bdac.chunk.js",
+    "static/media/logo.svg": "/UbiquitousShopping/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
+    "index.html": "/UbiquitousShopping/index.html",
+    "main.073c9b0a.css.map": "/UbiquitousShopping/static/css/main.073c9b0a.css.map",
+    "main.a9c1a35e.js.map": "/UbiquitousShopping/static/js/main.a9c1a35e.js.map",
+    "787.f970bdac.chunk.js.map": "/UbiquitousShopping/static/js/787.f970bdac.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.073c9b0a.css",
+    "static/js/main.a9c1a35e.js"
+  ]
+}
