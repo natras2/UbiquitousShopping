@@ -73,9 +73,8 @@ var userRepos = {
 
 // example: http://localhost:3000/
 app.get('/', function (req, res) {
-    res.send(`{
-        "message": "Hello World!"
-    }`);
+    let obj = "{'message': 'Hello world!'}";
+    res.send(JSON.parse(obj));
 });
 
 // example: http://localhost:3000/api/users/?api-key=foo
