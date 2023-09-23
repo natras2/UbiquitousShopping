@@ -84,7 +84,7 @@ jobs:
           # NOTE: If required, update to the appropriate source folder
           source: ./server/
           env_vars: |
-            SECRET_KEY=${{ secrets.SECRET_AUTH_KEY }}:latest
+            SECRET_KEY=${{ secrets.SECRET_AUTH_KEY }}
 
       # If required, use the Cloud Run url output in later steps
       - name: Show Output
