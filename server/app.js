@@ -71,6 +71,13 @@ var userRepos = {
 // we now can assume the api key is valid,
 // and simply expose the data
 
+// example: http://localhost:3000/
+app.get('/', function (req, res) {
+    res.send(`{
+        "message": "Hello World!"
+    }`);
+});
+
 // example: http://localhost:3000/api/users/?api-key=foo
 app.get('/api/users', function (req, res) {
   res.send(users);
