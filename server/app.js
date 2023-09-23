@@ -1,12 +1,9 @@
-'use strict'
-
-/**
- * Module dependencies.
- */
-
 var express = require('express');
+require('dotenv').config();
+
 var app = express();
-const port = process.env.PORT || 8080;
+const port = 8080;
+const secretKey = process.env.SECRET_KEY || "1234567890"
 
 // create an error with .status. we
 // can then use the property in our
@@ -73,7 +70,7 @@ var userRepos = {
 
 // example: http://localhost:3000/
 app.get('/', function (req, res) {
-    var obj = {message: "Hello world!"};
+    var obj = {message: "Hello world!", sk: secretKey};
     res.send(obj);
 });
 
