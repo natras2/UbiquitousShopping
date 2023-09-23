@@ -50,7 +50,8 @@ on:
   push:
     branches: [ "main" ]
     paths: ['server/**']
-
+  workflow_dispatch:
+  
 env:
   PROJECT_ID: ${{ vars.PROJECT_ID }}
   SERVICE: ${{ vars.GCR_SERVICE_NAME }}
