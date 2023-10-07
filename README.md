@@ -5,7 +5,7 @@ Exam of Software Engineering M, Prof. Alessandro Ricci, MSc in Digital Transform
 
 ---
 
-Check for the documentation in the repository's [GH Wiki](https://github.com/natras2/UbiquitousShopping/wiki)
+Check for the documentation in the [repository's Wiki](https://github.com/natras2/UbiquitousShopping/wiki)
 
 ---
 
