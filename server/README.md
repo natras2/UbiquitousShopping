@@ -18,4 +18,6 @@ The backend infrastructure is written in Node.js, and uses the Express.js framew
 It is delivered to Google Cloud through a CI/CD mechanism, triggered by GH Actions any time an edit to the source code is pushed to this subfolder.
 The source code is build to deployment, deployed as an Artifact to Google Cloud Artifact Registry and then runned by Google Cloud Run.
 
-The API endpoints are accessible at [api.ubishop.it](https://api.ubishop.it). An OpenAPI Spectification of the endpoints can be found [here](https://github.com/natras2/UbiquitousShopping/blob/main/documentation/3.SoftwareArchitecture/endpoints/openapi.json).
+The API endpoints are accessible at [api.ubishop.it](https://api.ubishop.it). 
+
+An OpenAPI Specification of the endpoints can be found [here](https://github.com/natras2/UbiquitousShopping/blob/main/documentation/3.SoftwareArchitecture/endpoints/openapi.json).
