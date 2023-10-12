@@ -10,7 +10,11 @@ For the only reason of simplicity while delivering the demo, the deployment invo
 
 The application has been developed as a Progressive Web App and it has been written in React. It is delivered using GH Pages, through a dedicated branch that contains the code of the application, build for deployment. 
 
-The process of deployment to GH Pages is triggered as follows: 
+The process of deployment to GH Pages is triggered running: 
+```
+npm run deploy
+```
+which excecutes the following commands:
 ```
 npm run build
 gh-pages -d build
