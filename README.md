@@ -1,4 +1,4 @@
-## Ubiquitous Shopping 
+## UbiquitousShopping 
 
 Authors: [Paolo Zanatto](https://github.com/zanattopaolo1) and [Giovanni Lucia](https://github.com/natras2)<br>
 Exam of Software Engineering M, Prof. Alessandro Ricci, MSc in Digital Transformation Management @ University of Bologna, A.Y. 2022/2023
