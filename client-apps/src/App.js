@@ -1,39 +1,41 @@
 import logo from './assets/images/logo/svg/full.svg';
 import illustration from './assets/images/illustrations/undraw_shopping_app_flsj.svg'
 import DefaultButton from './assets/components/DefaultButton';
-import { useLocation } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 import { FaGoogle, FaApple } from 'react-icons/fa6';
 
 function LandingButtons(params) {
     const salesAssistant = (
         <div className='bottom-container buttons'>
-            <DefaultButton text='Sign-in as Sales Assistant' isCentered='true' isLarge='true' hasIcon='' />
-            <a href="/" className='signin-link'>
+            <DefaultButton to='/sa/login' text='Sign-in as Sales Assistant' icon='' isCentered='true' isLarge='true' isButton='false' />
+            <div className="divider my-0"></div>
+            <Link to="/" className='signin-link'>
                 Sign in as Customer instead
-            </a>
+            </Link>
         </div>
     ); 
     const customer = (
         <div className='bottom-container buttons'>
             <div className='google-button d-grid'>
-                <button type="button" className="btn rounded-4 shadow-sm btn-lg btn-block">
+                <Link to='/' type="button" className="btn rounded-4 shadow-sm btn-lg btn-block">
                     <FaGoogle />
                     <div className='text'>Sign-in with Google</div>
-                </button>
+                </Link>
             </div>
             <div className='apple-button d-grid'>
-                <button type="button" className="btn rounded-4 shadow-sm btn-lg btn-block">
+                <Link to='/'  type="button" className="btn rounded-4 shadow-sm btn-lg btn-block">
                     <FaApple />
                     <div className='text'>Sign-in with Apple ID</div>
-                </button>
+                </Link>
             </div>
-            <a href="https://github.com" className='signin-link'>
+            <div className="divider my-0"></div>
+            <Link to="/login" className='signin-link'>
                 Sign-in with your email
-            </a>   
+            </Link>   
         </div>
     );
 
-    return <>{params.user === 'sa' ? salesAssistant : customer}</>; 
+    return <>{params.isSA ? salesAssistant : customer}</>; 
 }
 
 function Landing(params) {
@@ -55,19 +57,17 @@ function Landing(params) {
                     />
                 </div>
             </div>
-            <LandingButtons user={params.user}/>
+            <LandingButtons isSA={params.isSA}/>
         </div>
     );
 }
 
-function App() {
+function App(props) {
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
-    
-    const user = searchParams.get('u');
 
     return (
-        <Landing user={user}/>
+        <Landing isSA={props.isSA || (searchParams.get('u') === 'sa' ? true : false )}/>
     );
 }
 

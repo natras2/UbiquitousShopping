@@ -8,6 +8,14 @@ html, body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
+html {
+    background-color: #FEFEFE;
+}
+body {
+    background-color: #F5F5F5;
+    max-width: 414px;
+    margin: 0 auto;
+}
 
 code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
@@ -21,12 +29,52 @@ code {
 .page {
     background-color: #F5F5F5;
     height: 100%;
-    padding: 4em 1em 2.5em;
+    padding: 4em 1.2em 2.5em;
+}
+.page h5.subtitle,
+.page .h5.subtitle {
+    font-weight: 200;
+    margin-top: -3px;
+}
+.page .bottom-container.buttons > * {
+    width: 100%;
+    font-size: 17px;
+    text-align: center;
 }
 
-.default-button > button {
+.default-button > .btn {
     background-color: #9AB522;
     color: #F1F1F1;
+}
+
+.btn-lg { 
+    padding: .8em 1.5em; 
+}
+
+form input[type="text"], 
+form input[type="email"], 
+form input[type="password"] {
+    padding: .8rem 1.5rem;
+}
+
+.divider {
+    position: relative;
+    margin: 1rem 0;
+    height: 1px;
+}
+.divider:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 5%;
+    right: 5%;
+    width: 90%;
+    height: 1px;
+    background-image: linear-gradient(to right, transparent, rgb(48,49,51), transparent);
+}
+
+a:not(.btn) {
+    color: #123B14;
 }
 
 /* ------------------------ LANDING ------------------------ */
@@ -45,27 +93,63 @@ code {
 #landing.page .bottom-container {
     display: flex;
     flex-direction: column;
-    row-gap: 15px;
+    row-gap: 1rem;
     align-items: center;
 }
-#landing.page .bottom-container.buttons > * {
-    width: 100%;
-    font-size: 17px;
-    text-align: center;
-}
-#landing.page .bottom-container.buttons > div > button {
-    padding: .8em 2em;
+#landing.page .bottom-container.buttons > div > a.btn {
+    display: flex;
     gap: 1.5em;
 }
-#landing.page .bottom-container.buttons > div.google-button > button {
-    display: flex;
+#landing.page .bottom-container.buttons > div.google-button > .btn {
     background-color: #FEFEFE;
     color: #1D1D1D;
     align-items: center;
 }
-#landing.page .bottom-container.buttons > div.apple-button > button {
-    display: flex;
+#landing.page .bottom-container.buttons > div.apple-button > .btn {
     background-color: #1D1D1D;
     color: #F1F1F1;
     align-items: center;
+}
+
+/* -------------------- LOGIN ---------------------- */
+#login.page {
+    background: url('../images/logo/svg/edits/graphic_silver.svg') -120px 120% no-repeat;
+    background-size: 512px 512px;
+}
+#login.page form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}
+#login.page .bottom-container {
+    text-align: center;
+}
+
+/* -------------------- RECOVER ---------------------- */
+#recover.page form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}
+#recover.page .bottom-container {
+    text-align: center;
+}
+
+/* -------------------- REGISTER ---------------------- */
+#signup.page form {
+    height: 100%;
+}
+#signup.page form > div {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}
+#signup.page .bottom-container {
+    text-align: center;
+}
+#signup.page .form-control * {
+    border: none !important;
 }
