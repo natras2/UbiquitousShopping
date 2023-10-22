@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link } from "react-router-dom";
 import DefaultButton from "../assets/components/DefaultButton";
-import Select from 'react-select'
+import InputField from '../assets/components/InputField';
 
 function Header(props) {
     return (
@@ -23,24 +23,13 @@ function Step1(props) {
         <div id='step1'>
             <div className='top-container'>
                 <Header progressive='1' />
-                <div className="mb-2">
-                    <input type="text" className="form-control" id="text" placeholder="Name" name="name" onChange={props.handleChange} required />
-                    <div className="invalid-feedback">Please fill out this field.</div>
-                </div>
-                <div className="mb-2">
-                    <input type="text" className="form-control" id="text" placeholder="Surname" name="surname" onChange={props.handleChange} required />
-                    <div className="invalid-feedback">Please fill out this field.</div>
-                </div>
-                <div className="mb-2">
-                    <Select className="form-control" placeholder='Sex' name='sex' onChange={props.handleChange} options={options} />
-                </div>
-                <div className="mb-2">
-                    <input type="text" className="form-control" id="text" placeholder="Address" name="address" onChange={props.handleChange} required />
-                    <div className="invalid-feedback">Please fill out this field.</div>
-                </div>
+                <InputField type="text" placeholder="Name" name="name" value={props.values.name} handleChange={props.handleChange} isRegistering='true'/>
+                <InputField type="text" placeholder="Surname" name="surname" value={props.values.surname} handleChange={props.handleChange} isRegistering='true'/>
+                <InputField type="select" placeholder='Sex' name='sex' value={props.values.sex} handleChange={props.handleChange} options={options} showGuide='true' guideText='' isRegistering='true' />
+                <InputField type="text" placeholder="Address" name="address" value={props.values.address} handleChange={props.handleChange} showGuide='true' guideText='' isRegistering='true'/>
             </div>
             <div className='bottom-container buttons'>
-                <DefaultButton to='#' text='Continue' icon='' isCentered='true' isLarge='true' isButton='true' isSubmit='false' handler={props.handleContinue}/>
+                <DefaultButton to='#' text='Continue' icon='' isCentered='true' isLarge='true' isButton='true' isSubmit='false' handler={props.onContinue}/>
                 <div className="divider"></div>
                 <Link to="/login">
                     Sign-in to your account
@@ -53,23 +42,18 @@ function Step1(props) {
 function Step2(props) {
     const options = [
         { value: 'id', label: 'ID Card' },
-        { value: 'patent', label: 'Patent' },
+        { value: 'licence', label: 'Driver licence' },
         { value: 'passport', label: 'Passport' }
     ]
     return (
         <div id='step2'>
             <div className='top-container'>
                 <Header progressive='2' />
-                <div className="mb-2">
-                    <Select className="form-control" name='id_type' placeholder='ID document type' onChange={props.handleChange} options={options} />
-                </div>
-                <div className="mb-2">
-                    <input type="text" className="form-control" id="number" placeholder="ID document number" name="id_number" onChange={props.handleChange} required />
-                    <div className="invalid-feedback">Please fill out this field.</div>
-                </div>
+                <InputField type="select" placeholder='ID document type' name='id_type' value={props.values.id_type} handleChange={props.handleChange} options={options}  isRegistering='true' />
+                <InputField type="text" placeholder="ID document number" name="id_number" value={props.values.id_number} handleChange={props.handleChange} showGuide='true' guideText='' isRegistering='true'/>
             </div>
             <div className='bottom-container buttons'>
-                <DefaultButton to='#' text='Continue' icon='' isCentered='true' isLarge='true' isButton='true' isSubmit='false' handler={props.handleContinue}/>
+                <DefaultButton to='#' text='Continue' icon='' isCentered='true' isLarge='true' isButton='true' isSubmit='false' handler={props.onContinue}/>
                 <div className="divider"></div>
                 <Link to="#" onClick={props.goBack}>
                     Go back
@@ -84,17 +68,11 @@ function Step3(props) {
         <div id='step3'>
             <div className='top-container'>
                 <Header progressive='3' />
-                <div className="mb-2">
-                    <input type="email" className="form-control" id="email" placeholder="E-mail address" name="email" onChange={props.handleChange} required />
-                    <div className="invalid-feedback">Please fill out this field.</div>
-                </div>
-                <div className="mb-3">
-                    <input type="password" className="form-control" id="password" placeholder="Password" name="password" onChange={props.handleChange} required />
-                    <div className="invalid-feedback">Please fill out this field.</div>
-                </div>
+                <InputField type="email" placeholder="E-mail address" name="email" value={props.values.email} handleChange={props.handleChange} isRegistering='true'/>
+                <InputField type="password" placeholder="Password" name="password" value={props.values.password} handleChange={props.handleChange} isRegistering='true'/>
             </div>
             <div className='bottom-container buttons'>
-                <DefaultButton to='#' text='Continue' icon='' isCentered='true' isLarge='true' isButton='true' isSubmit='false' handler={props.handleContinue}/>
+                <DefaultButton to='#' text='Create a new account' icon='' isCentered='true' isLarge='true' isButton='true' isSubmit='true' />
                 <div className="divider"></div>
                 <Link to="#" onClick={props.goBack}>
                     Go back
@@ -105,7 +83,7 @@ function Step3(props) {
 }
 
 export default function Register() {
-    var data = {
+    const [data, setData] = useState({
         name: '',
         surname: '',
         address: '',
@@ -114,10 +92,11 @@ export default function Register() {
         id_number: '',
         email: '',
         password: '',
-    };
+    });
     const [step, setStep] = useState(1);
 
     function handleSubmit(e) {
+        console.log("WHY AM I HERE!?");
         // Prevent the browser from reloading the page
         e.preventDefault();
     
@@ -126,7 +105,7 @@ export default function Register() {
         const formData = new FormData(form);
     
         // You can pass formData as a fetch body directly:
-        fetch('/some-api', { method: form.method, body: formData });
+        // fetch('/some-api', { method: form.method, body: formData });
     
         // Or you can work with it as a plain object:
         const formJson = Object.fromEntries(formData.entries());
@@ -143,24 +122,44 @@ export default function Register() {
     }
 
     function handleChange(e) {
-        let name = e.target.name;
-        let value = e.target.value;
+        const { name, value } = e.target;
         if (data.hasOwnProperty(name)) {
-            data[name] = value;
+            setData(prevState => ({
+                ...prevState,
+                [name]: value
+            }));
         }
+        console.log(data)
     }
     
     return (
         <div id='signup' className='page'>
             <form method="post" onSubmit={handleSubmit}>
                 {step === 1 &&
-                    <Step1 onChange={handleChange} onContinue={handleContinue} />
+                    <Step1 handleChange={handleChange} onContinue={handleContinue} values={ 
+                        {
+                            name: data.name, 
+                            surname: data.surname,
+                            sex: data.sex, 
+                            address: data.address,
+                        } 
+                    } />
                 }
                 {step === 2 &&
-                    <Step2 goBack={goBack} onChange={handleChange} onContinue={handleContinue} />
+                    <Step2 goBack={goBack} handleChange={handleChange} onContinue={handleContinue} values={ 
+                        {
+                            id_type: data.id_type, 
+                            id_number: data.id_number
+                        } 
+                    } />
                 }
                 {step === 3 &&
-                    <Step3 goBack={goBack} onChange={handleChange} onContinue={handleContinue} />
+                    <Step3 goBack={goBack} handleChange={handleChange} values={ 
+                        {
+                            email: data.email, 
+                            password: data.password
+                        } 
+                    } />
                 }
             </form>
         </div>

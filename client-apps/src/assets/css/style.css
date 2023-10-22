@@ -46,7 +46,6 @@ code {
     background-color: #9AB522;
     color: #F1F1F1;
 }
-
 .btn-lg { 
     padding: .8em 1.5em; 
 }
@@ -55,6 +54,11 @@ form input[type="text"],
 form input[type="email"], 
 form input[type="password"] {
     padding: .8rem 1.5rem;
+}
+form .input-guide {
+    color: #d1a164;
+    font-size: .9rem;
+    margin-top: -3px;
 }
 
 .divider {
@@ -75,6 +79,17 @@ form input[type="password"] {
 
 a:not(.btn) {
     color: #123B14;
+}
+
+.password-strength-bar > div {
+    margin-top: .4rem !important;
+}
+.password-strength-bar > div > div {
+    height: 7px !important;
+    border-radius: 25px;
+}
+.password-strength-bar > p {
+    margin-top: 4px !important;
 }
 
 /* ------------------------ LANDING ------------------------ */
@@ -149,7 +164,4 @@ a:not(.btn) {
 }
 #signup.page .bottom-container {
     text-align: center;
-}
-#signup.page .form-control * {
-    border: none !important;
 }

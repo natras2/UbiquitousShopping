@@ -11,8 +11,9 @@ function DefaultButton(props) {
      * - isButton
      * - isSubmit
      * - isLarge
+     * - handler
      */
-
+    const { isCentered, isLarge, isSubmit, handler = () => {} } = props;
     const Icon = (props.icon !== '') ? FontAwesome[props.icon] : '';
 
     return (
@@ -30,8 +31,9 @@ function DefaultButton(props) {
             }
             { props.isButton === 'true' &&
             <button
-              type={ props.isSubmit === 'true' ? 'submit' : '' }
-              className={"btn rounded-4 "+ (props.isCentered ? 'justify-content-center ' : '' ) + "d-flex shadow-sm " + (props.isLarge ? 'btn-lg ' : '') + "btn-block"}>
+              type={ isSubmit === 'true' ? 'submit' : 'button' }
+              className={"btn rounded-4 "+ (isCentered ? 'justify-content-center ' : '' ) + "d-flex shadow-sm " + (isLarge ? 'btn-lg ' : '') + "btn-block"}
+              onClick={handler} >
                 {props.icon !== '' &&
                     <div className='icon'><Icon /></div>
                 }

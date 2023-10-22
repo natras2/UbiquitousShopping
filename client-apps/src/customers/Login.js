@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import DefaultButton from "../assets/components/DefaultButton";
 import LoginForm from "../assets/components/LoginForm";
+import InputField from "../assets/components/InputField";
 
 export function PasswordForgotten() {
     function handleSubmit(e) {
@@ -13,10 +14,7 @@ export function PasswordForgotten() {
                     <h1 className='title'>Password forgotten?</h1>
                     <h5 className='subtitle'>Don't worry, we got you covered!</h5>
                     <div className="my-4">Insert your email address, we will send you the link to restore your password.</div>
-                    <div className="mb-2">
-                        <input type="email" className="form-control" id="email" placeholder="E-mail address" name="email" required />
-                        <div className="invalid-feedback">Please fill out this field.</div>
-                    </div>
+                    <InputField type="email" placeholder="E-mail address" name="email" isRegistering='false'/>
                 </div>
                 <div className='bottom-container buttons'>
                     <DefaultButton to='#' text='Recover the password' icon='' isCentered='true' isLarge='true' isButton='true' isSubmit='true'/>
