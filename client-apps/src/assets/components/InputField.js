@@ -1,6 +1,7 @@
 import Select from 'react-select'
 import PasswordStrengthBar from 'react-password-strength-bar';
 import { useState } from 'react';
+import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
 
 function TextualField(props) {
     const [fieldValue, setFieldValue] = useState(props.value); // Initialize state with prop value
@@ -34,6 +35,7 @@ function TextualField(props) {
 }
 function SelectField(props) {
     const [fieldValue, setFieldValue] = useState(props.value); // Initialize state with prop value
+    const [addressValue, setAddressValue] = useState(props.value); // Initialize state with prop value
 
     const handleFieldChange = (selectedOption) => {
         var e = {
@@ -45,6 +47,16 @@ function SelectField(props) {
         props.handleChange(e);
         setFieldValue(selectedOption.value); // Update state with input value
     };
+    const handleAddressChange = (selectedOption) => {
+        var e = {
+            target: {
+                name: props.name,
+                value: selectedOption.value.description
+            }
+        };
+        props.handleChange(e);
+        setAddressValue(selectedOption.value.description); // Update state with input value
+    };
     const style = {
         control: base => ({
             ...base,
@@ -55,6 +67,20 @@ function SelectField(props) {
     };
     return (
         <div className="mb-2">
+            {props.isAddress && 
+            <GooglePlacesAutocomplete
+                apiKey="AIzaSyAlvznz4RreUk8jyKtiPUP0XIzC9rn6ydE"
+                apiOptions={{ language: 'it', region: 'it' }}
+                selectProps= {{
+                    className: "form-control",
+                    name: props.name,
+                    value: props.value,
+                    placeholder: (addressValue !== '' ? addressValue : props.placeholder),
+                    onChange: handleAddressChange,
+                    styles: style
+                }} />
+            }
+            {!props.isAddress && 
             <Select 
                 className="form-control" 
                 name={props.name} 
@@ -63,6 +89,7 @@ function SelectField(props) {
                 onChange={handleFieldChange} 
                 options={props.options} 
                 styles={style} />
+}
         </div>
     )
 }
@@ -114,7 +141,19 @@ export default function InputField(props) {
                     placeholder={props.placeholder} 
                     handleChange={props.handleChange} 
                     options={props.options} 
-                    isRegistering={props.isRegistering} />
+                    isRegistering={props.isRegistering}
+                    isAddress={false} />
+            );
+            break;
+        case 'address':
+            field = (
+                <SelectField
+                    name={props.name} 
+                    value={props.value} 
+                    placeholder={props.placeholder} 
+                    handleChange={props.handleChange}
+                    isRegistering={props.isRegistering}
+                    isAddress={true} />
             );
             break;
         default:

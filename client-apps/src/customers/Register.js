@@ -26,7 +26,8 @@ function Step1(props) {
                 <InputField type="text" placeholder="Name" name="name" value={props.values.name} handleChange={props.handleChange} isRegistering='true'/>
                 <InputField type="text" placeholder="Surname" name="surname" value={props.values.surname} handleChange={props.handleChange} isRegistering='true'/>
                 <InputField type="select" placeholder='Sex' name='sex' value={props.values.sex} handleChange={props.handleChange} options={options} showGuide='true' guideText='' isRegistering='true' />
-                <InputField type="text" placeholder="Address" name="address" value={props.values.address} handleChange={props.handleChange} showGuide='true' guideText='' isRegistering='true'/>
+                <InputField type="address" placeholder='Address' name='address' value={props.values.address} handleChange={props.handleChange} showGuide='true' guideText='' isRegistering='true' />
+                {/*<InputField type="text" placeholder="Address" name="address" value={props.values.address} handleChange={props.handleChange} showGuide='true' guideText='' isRegistering='true'/>*/}
             </div>
             <div className='bottom-container buttons'>
                 <DefaultButton to='#' text='Continue' icon='' isCentered='true' isLarge='true' isButton='true' isSubmit='false' handler={props.onContinue}/>
@@ -129,7 +130,6 @@ export default function Register() {
                 [name]: value
             }));
         }
-        console.log(data)
     }
     
     return (

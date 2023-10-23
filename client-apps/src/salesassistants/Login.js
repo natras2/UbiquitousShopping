@@ -1,21 +1,34 @@
+import { useState } from "react";
 import DefaultButton from "../assets/components/DefaultButton";
-import LoginForm from "../assets/components/LoginForm";
+import InputField from "../assets/components/InputField";
+import { encryptPassword } from "../assets/components/Utils";
 
 function Login() {
+    const [data, setData] = useState({
+        email: '',
+        password: '',
+    });
+
     function handleSubmit(e) {
         // Prevent the browser from reloading the page
         e.preventDefault();
+
+        // generate data to fetch
+        const form = {...data};
+        form.password = encryptPassword(data.password);
     
-        // Read the form data
-        const form = e.target;
-        const formData = new FormData(form);
+        //fetch('/auth/login?user=sa', { method: e.target.method, body: form });
+        console.log(form);
+    }
     
-        // You can pass formData as a fetch body directly:
-        fetch('/some-api', { method: form.method, body: formData });
-    
-        // Or you can work with it as a plain object:
-        const formJson = Object.fromEntries(formData.entries());
-        console.log(formJson);
+    function handleChange(e) {
+        const { name, value } = e.target;
+        if (data.hasOwnProperty(name)) {
+            setData(prevState => ({
+                ...prevState,
+                [name]: value
+            }));
+        }
     }
     
     return (
@@ -23,7 +36,8 @@ function Login() {
             <form method="post" onSubmit={handleSubmit}>
                 <div className='top-container'>
                     <h1 className="mb-4">Sign-in</h1>
-                    <LoginForm />
+                    <InputField type="email" placeholder="E-mail address" name="email" value={data.email} handleChange={handleChange} isRegistering='false' />
+                    <InputField type="password" placeholder="Password" name="password" value={data.password} handleChange={handleChange}  isRegistering='false' />
                 </div>
                 <div className='bottom-container buttons'>
                     <DefaultButton to='#' text='Sign-in to your account' icon='' isCentered='true' isLarge='true' isButton='true' isSubmit='true'/>

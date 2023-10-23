@@ -165,3 +165,8 @@ a:not(.btn) {
 #signup.page .bottom-container {
     text-align: center;
 }
+#signup.page div[id^="react-select-"][id$="listbox"] {
+    position: absolute;
+    left: 0px;
+    margin-top:3px;
+}
