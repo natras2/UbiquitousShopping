@@ -32,7 +32,7 @@ function Step1(props) {
             <div className='bottom-container buttons'>
                 <DefaultButton to='#' text='Continue' icon='' isCentered='true' isLarge='true' isButton='true' isSubmit='false' handler={props.onContinue}/>
                 <div className="divider"></div>
-                <Link to="/login">
+                <Link to="../login">
                     Sign-in to your account
                 </Link>   
             </div>
@@ -56,7 +56,7 @@ function Step2(props) {
             <div className='bottom-container buttons'>
                 <DefaultButton to='#' text='Continue' icon='' isCentered='true' isLarge='true' isButton='true' isSubmit='false' handler={props.onContinue}/>
                 <div className="divider"></div>
-                <Link to="#" onClick={props.goBack}>
+                <Link to="." onClick={props.goBack}>
                     Go back
                 </Link>   
             </div>
@@ -75,7 +75,7 @@ function Step3(props) {
             <div className='bottom-container buttons'>
                 <DefaultButton to='#' text='Create a new account' icon='' isCentered='true' isLarge='true' isButton='true' isSubmit='true' />
                 <div className="divider"></div>
-                <Link to="#" onClick={props.goBack}>
+                <Link to="." onClick={props.goBack}>
                     Go back
                 </Link>   
             </div>

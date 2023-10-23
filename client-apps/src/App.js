@@ -7,9 +7,9 @@ import { FaGoogle, FaApple } from 'react-icons/fa6';
 function LandingButtons(params) {
     const salesAssistant = (
         <div className='bottom-container buttons'>
-            <DefaultButton to='/sa/login' text='Sign-in as Sales Assistant' icon='' isCentered='true' isLarge='true' isButton='false' />
+            <DefaultButton to='login' text='Sign-in as Sales Assistant' icon='' isCentered='true' isLarge='true' isButton='false' />
             <div className="divider my-0"></div>
-            <Link to="/" className='signin-link'>
+            <Link to="../" className='signin-link'>
                 Sign in as Customer instead
             </Link>
         </div>
@@ -17,19 +17,19 @@ function LandingButtons(params) {
     const customer = (
         <div className='bottom-container buttons'>
             <div className='google-button d-grid'>
-                <Link to='/' type="button" className="btn rounded-4 shadow-sm btn-lg btn-block">
+                <Link to='.' type="button" className="btn rounded-4 shadow-sm btn-lg btn-block">
                     <FaGoogle />
                     <div className='text'>Sign-in with Google</div>
                 </Link>
             </div>
             <div className='apple-button d-grid'>
-                <Link to='/'  type="button" className="btn rounded-4 shadow-sm btn-lg btn-block">
+                <Link to='.'  type="button" className="btn rounded-4 shadow-sm btn-lg btn-block">
                     <FaApple />
                     <div className='text'>Sign-in with Apple ID</div>
                 </Link>
             </div>
             <div className="divider my-0"></div>
-            <Link to="/login" className='signin-link'>
+            <Link to="login" className='signin-link'>
                 Sign-in with your email
             </Link>   
         </div>

@@ -71,7 +71,7 @@ export default function Login() {
                 <div className='bottom-container buttons'>
                     <DefaultButton to='#' text='Sign-in to your account' icon='' isCentered='true' isLarge='true' isButton='true' isSubmit='true'/>
                     <div className="divider"></div>
-                    <Link to="/signup">
+                    <Link to="../signup">
                         Create a new account
                     </Link>   
                 </div>
