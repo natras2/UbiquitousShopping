@@ -11,4 +11,4 @@ Check for the documentation in the repository's [Wiki](https://github.com/natras
 
 This project is aimed at supporting customers' shopping experience in local shops such as Negozio Leggero's, a retail store chain whose mission is to minimize the stores's environmental impact by removing the packaging in the last stages of the groceries' supply chain.
 
-To date, the purchase experience is intricate and strictly linked to the operations of sales assistants. The system will help the customers to be more independent and autonomous in their purchase experiences, by tracking all the relevant information about purchases, supporting Negozio Leggero's product provision and customization of service.
+To date, the purchase experience is intricate and strictly linked to the operations of sales assistants. The system will help the customers to be more independent and autonomous in their purchase experiences, by tracking all the relevant information about purchases, supporting the shop with the product provision and the customization of service.
