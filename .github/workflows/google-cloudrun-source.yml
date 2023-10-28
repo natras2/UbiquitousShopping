@@ -85,6 +85,10 @@ jobs:
           source: ./server/
           env_vars: |
             SECRET_KEY=${{ secrets.SECRET_AUTH_KEY }}
+            DB_USER=${{ secrets.DB_USER }}
+            DB_PASSWORD=${{ secrets.DB_PASSWORD }}
+            DB_NAME=${{ secrets.DB_NAME }}
+            DB_CLOUDSQL_INSTANCE=${{ secrets.DB_CLOUDSQL_INSTANCE }}
 
       # If required, use the Cloud Run url output in later steps
       - name: Show Output
