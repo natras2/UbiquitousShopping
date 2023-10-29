@@ -5,7 +5,7 @@ const authRouter = express.Router();
 // Log in and generate a JWT
 authRouter.post('/login', async (req, res) => {
     try {
-        let token = CustomerLogin(email, password);
+        let token = await CustomerLogin(req.body.email_address, req.body.password);
         if (!token || token == null) {
             res.status(401).send('Authentication failed');
         } 
