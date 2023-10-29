@@ -19,7 +19,7 @@ db
     .then(() => {
         console.log('Connection to the database has been established successfully.');
 
-        db.sync({force: true})
+        db.sync()
         .then(() => {
             console.log('Database and tables schemas are synched');
         });

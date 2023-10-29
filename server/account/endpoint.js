@@ -4,9 +4,9 @@ const CustomerRegistration = require('./controller/registration');
 const accountRouter = express.Router();
 
 // Register a new customer
-accountRouter.post('/register', async (req, res) => {
+accountRouter.post('/create', async (req, res) => {
     try {
-        let newCustomer = CustomerRegistration(req.body);
+        let newCustomer = await CustomerRegistration(req.body);
         res.status(201).json(newCustomer);
     }
     catch (error) {
@@ -17,10 +17,11 @@ accountRouter.post('/register', async (req, res) => {
 
 // Protected routes
 const ValidateToken = require('../auth/controller/validate');
+const Customer = require('../model/customer');
 
 accountRouter.get('/', ValidateToken, async (req, res) => {
     let customerData = await Customer.findOne({ where: { id: req.uid } });
-    res.json(customerData);
+    res.send('Ciao '+ customerData.name+ '!');
 });
 
 module.exports = accountRouter;

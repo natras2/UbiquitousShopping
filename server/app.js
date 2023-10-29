@@ -4,8 +4,6 @@ var app = express();
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 
-const Store = require('./model/store');
-
 // Define different routers for the microserivices
 const authRouter = require('./auth/endpoint');
 app.use('/auth', authRouter);
