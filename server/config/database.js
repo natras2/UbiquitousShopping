@@ -1,6 +1,7 @@
 const Sequelize = require('sequelize');
 require('dotenv').config();
 
+// Connection
 const db = new Sequelize({
     dialect: 'mysql',
     host: (process.env.IS_LOCAL) ? 'localhost' : undefined,
@@ -12,14 +13,19 @@ const db = new Sequelize({
     database: process.env.DB_NAME,
 });
 
-// Test the database connection
+// Connection test
 db
     .authenticate()
     .then(() => {
         console.log('Connection to the database has been established successfully.');
+
+        db.sync({force: true})
+        .then(() => {
+            console.log('Database and tables schemas are synched');
+        });
     })
     .catch((err) => {
         console.error('Unable to connect to the database:', err);
-    });
+    })
 
 module.exports = db;

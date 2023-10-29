@@ -1,5 +1,6 @@
 const Sequelize = require('sequelize');
 const db = require('../config/database');
+const Cart = require('./cart');
 
 const Customer = db.define('Customer', {
     id: {
@@ -60,12 +61,14 @@ const Customer = db.define('Customer', {
     },
 });
 
-Customer.sync()
-    .then(() => {
-        console.log('Customer model synchronized with the database.');
-    })
-    .catch((error) => {
-        console.error('Error synchronizing user model:', error);
-    });
+Customer.hasMany(Cart, {
+    foreignKey: {
+        name: 'customer_id',
+        allowNull: false
+    },
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE'
+});
+Cart.belongsTo(Customer);
 
 module.exports = Customer;
