@@ -69,6 +69,11 @@ Customer.hasMany(Cart, {
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE'
 });
-Cart.belongsTo(Customer);
+Cart.belongsTo(Customer, {
+    foreignKey: {
+        name: 'customer_id',
+        allowNull: false
+    }
+});
 
 module.exports = Customer;
