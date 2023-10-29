@@ -2,12 +2,13 @@
 
 This subfolder contains the implementing source code for the backend microservices and API endpoints involved by our project.
 
-Specifically, the application is divided in 6 subfolders, one for each microservice (in brackets) we've identified:
-- **/auth** (Authentication)
-- **/cart** (Cart management)
-- **/profile** (Profile management)
-- **/checkout** (Offer and checkout management)
-- **/provision** (Dispenser provisioning)
+Specifically, the application is divided in 8 subfolders, one for the database configuration file, one for the model files and six for the microservice (in brackets) we've identified:
+
+- `/auth` (Authentication service)
+- `/shopping` (Shopping service)
+- `/account` (Account management service)
+- `/checkout` (Checkout service)
+- `/store` (Store management service)
 
 This division is meant at confining as much as possible the scope of interoperating functions within the same microservice. 
 
