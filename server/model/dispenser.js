@@ -24,6 +24,10 @@ const Dispenser = db.define('Dispenser', {
         type: Sequelize.INTEGER,
         allowNull: false, 
     },
+    current_weight: {
+        type: Sequelize.DECIMAL(8,3), // 99999,999 g
+        allowNull: false, 
+    }
 });
 
 Dispenser.hasOne(WeightSensor, {

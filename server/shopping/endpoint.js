@@ -7,7 +7,7 @@ const shoppingRouter = express.Router();
 //PROTECTED ROUTES
 
 // Access to a Cart
-authRouter.get('/cart/:idcart', ValidateToken, async (req, res) => {
+shoppingRouter.get('/cart/:idcart', ValidateToken, async (req, res) => {
     try {
         //access to Cart
         let cart = await CartAccess(req.body.idcart) //SET THE NAME OF THE FIELD REGARDING THE IDCART
@@ -26,7 +26,7 @@ authRouter.get('/cart/:idcart', ValidateToken, async (req, res) => {
 
 
 // Create a new Cart 
-authRouter.post('/cart/new', ValidateToken, async (req, res) => {
+shoppingRouter.post('/cart/new', ValidateToken, async (req, res) => {
     try {
         let newCart = await CartCreation(req.body);
         res.status(201).json(newCart);
@@ -39,7 +39,7 @@ authRouter.post('/cart/new', ValidateToken, async (req, res) => {
 
 
 // Scan of Merch and access to Digital label 
-authRouter.get('/scan/:idmerchlot', ValidateToken, async (req, res) => {
+shoppingRouter.get('/scan/:idmerchlot', ValidateToken, async (req, res) => {
     try {
         //access to Merchlot
         let merchlot = await MerchAccess(req.body.idmerchlot) //SET THE NAME OF THE FIELD REGARDING THE IDMERCHLOT

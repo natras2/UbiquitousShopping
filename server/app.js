@@ -3,6 +3,20 @@ var app = express();
 
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
+ 
+//update DB
+const Cart = require('./model/cart');
+const CartOffer = require('./model/cartoffer');
+const Customer = require('./model/customer');
+const Dispenser = require('./model/dispenser');
+const Merch = require('./model/merch');
+const MerchLot = require('./model/merchlot');
+const Offer = require('./model/offer');
+const Product = require('./model/product');
+const SalesAssistant = require('./model/salesassistant');
+const Store = require('./model/store');
+const WeightSensor = require('./model/weightsensor'); 
+
 
 // Define different routers for the microserivices
 const authRouter = require('./auth/endpoint');
@@ -37,7 +51,7 @@ app.get('/', function (req, res) {
                         <img src="https://raw.githubusercontent.com/natras2/UbiquitousShopping/a7cc9aa123d8483b359df520c0493ca52ca8ee73/client-apps/src/assets/images/logo/png/full.png" style="height: 5.5rem;margin-right: -7px;position: relative;top: -8px;" alt="UbiShop"> API
                     </h1>
                     <h3 style="color: #7C9805;font-weight: 400;">Welcome to UbiShop API</h3>
-                    <p style="font-weight: 300;">Unlock a new ubiquitous shopping experience: UbiShop has been created to help retail customers to be more independent and autonomous in their purchase experiences, by tracking all the relevant information about purchases, supporting the local shops with the product provision and the customization of service.</p>                    
+                    <p style="font-weight: 300;">Unlock a new ubiquitous shopping experience: UbiShop has been created to help retail customers to be more independent and autonomous in their purchase experiences, by tracking all the relevant information about products, supporting the local shops with the goods provision and the customization of service.</p>                    
                     <h3 style="color: #7C9805;font-weight: 400;">Discover what you can do</h3>
                     <p style="font-weight: 300;">Download the OpenAPI Specification file or <a href="https://github.com/natras2/UbiquitousShopping/wiki" >check the documentation</a>.</p>
                     <a href="/openapi" style="display: block;color: #efefef;background-color: #123b14;text-decoration: none;font-weight: 600;width: 254px;text-align: center;padding: .8rem;border: 1px solid #bcbcbc;border-radius: 41px;font-size: 14px;">DOWNLOAD THE SPECIFICATION</a>

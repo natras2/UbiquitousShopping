@@ -23,7 +23,4 @@ const Offer = db.define('Offer', {
     },
 });
 
-Offer.belongsToMany(Cart, { through: 'CartOffer' });
-Cart.belongsToMany(Offer, { through: 'CartOffer' });
-
 module.exports = Offer;

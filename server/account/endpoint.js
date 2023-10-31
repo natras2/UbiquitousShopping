@@ -7,7 +7,11 @@ const accountRouter = express.Router();
 accountRouter.post('/create', async (req, res) => {
     try {
         let newCustomer = await CustomerRegistration(req.body);
-        res.status(201).json(newCustomer);
+
+        if (!newCustomer || newCustomer == null) 
+            res.status(400).json({ error: 'The email address is already registered.' });
+        else 
+            res.status(201).json(newCustomer);
     }
     catch (error) {
         console.error('Error creating customer:', error);
