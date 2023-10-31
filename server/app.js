@@ -3,7 +3,8 @@ var app = express();
 
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
- 
+
+/*
 //update DB
 const Cart = require('./model/cart');
 const CartOffer = require('./model/cartoffer');
@@ -16,7 +17,7 @@ const Product = require('./model/product');
 const SalesAssistant = require('./model/salesassistant');
 const Store = require('./model/store');
 const WeightSensor = require('./model/weightsensor'); 
-
+*/
 
 // Define different routers for the microserivices
 const authRouter = require('./auth/endpoint');

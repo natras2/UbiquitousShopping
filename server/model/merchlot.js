@@ -17,14 +17,17 @@ const MerchLot = db.define('MerchLot', {
         type: Sequelize.DATE,
         allowNull: false, 
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
+        comment: 'YYYY-MM-DD',
     },
     traceability_info: {
-        type: Sequelize.STRING(1024),
+        type: Sequelize.TEXT,
         allowNull: false,
+        comment: 'JSON format',
     },
     nutritional_info: {
-        type: Sequelize.STRING(1024),
+        type: Sequelize.TEXT,
         allowNull: false,
+        comment: 'JSON format',
     },
 });
 

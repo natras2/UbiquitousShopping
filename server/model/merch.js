@@ -23,18 +23,22 @@ const Merch = db.define('Merch', {
     weight_threshold: {
         type: Sequelize.DECIMAL(8,3), // 99999,999 g
         allowNull: false, 
+        comment: 'in grams, max 99999.999',
     },
     price_per_milligram: {
-        type: Sequelize.DECIMAL(6,4), // 99,9999 €
+        type: Sequelize.DECIMAL(7,5), // 99,99999 €
         allowNull: false, 
+        comment: 'in euro, max 99.99999',
     },
     discriminant: {
         type: Sequelize.STRING,
         allowNull: false,
         defaultValue: 'SOLID',
+        comment: '[SOLID, LIQUID]',
     },
     milliliters_to_milligrams: {
         type: Sequelize.DECIMAL(6,4),
+        comment: 'required if discriminant=LIQUID',
     }
 });
 

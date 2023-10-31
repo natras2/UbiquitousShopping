@@ -12,8 +12,9 @@ const WeightSensor = db.define('WeightSensor', {
         allowNull: false,
     },
     specifics: {
-        type: Sequelize.STRING(1024),
+        type: Sequelize.TEXT,
         allowNull: false, 
+        comment: 'JSON format',
     },
 });
 

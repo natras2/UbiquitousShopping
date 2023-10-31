@@ -16,10 +16,12 @@ const Offer = db.define('Offer', {
         type: Sequelize.DATE,
         allowNull: false, 
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
+        comment: 'YYYY-MM-DD',
     },
     discount_rate: {
         type: Sequelize.DECIMAL(5,2),
         allowNull: false,
+        comment: 'percentage',
     },
 });
 
