@@ -10,7 +10,9 @@ async function CartAccess(idcart) {
         where: { 
             id: idcart 
         }, 
-        include: Product 
+        include: [{
+            model: Product
+        }] 
     });
     
     //const cart = await Cart.findOne({ where: { id: idcart } });

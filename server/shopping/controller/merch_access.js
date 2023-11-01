@@ -9,7 +9,9 @@ async function MerchAccess(iddispenser) {
         where: { 
             id: iddispenser 
         }, 
-        include: MerchLot 
+        include: [{
+            model: MerchLot
+        }]  
     });
     
     const merchlot = dispenser.MerchLot

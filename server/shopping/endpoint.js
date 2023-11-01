@@ -1,7 +1,6 @@
 const express = require('express');
 const CartAccess = require('./controller/cart_access');
 const MerchAccess = require('./controller/merch_access');
-const ValidateToken = require('../auth/controller/validate');
 const shoppingRouter = express.Router();
 
 //PROTECTED ROUTES
@@ -10,7 +9,7 @@ const shoppingRouter = express.Router();
 shoppingRouter.get('/cart/:idcart', async (req, res) => {
     try {
         //access to Cart
-        let cart = await CartAccess(req.body.idcart)
+        let cart = await CartAccess(req.params.idcart)
 
         if (cart == null) {
             res.status(404).send('Cart not found');
@@ -24,11 +23,13 @@ shoppingRouter.get('/cart/:idcart', async (req, res) => {
     }
 });
 
+/*INPUT
 
+*/
 // Create a new Cart 
 shoppingRouter.post('/cart/create', async (req, res) => {
     try {
-        let new_cart = await CartCreation(req.body);
+        let new_cart = await CartCreation(req.uid, req.query.storeId);
         //if (new_cart == null) 
 
         res.status(201).json(new_cart);
