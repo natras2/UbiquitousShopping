@@ -4,6 +4,8 @@ var app = express();
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 
+const ValidateToken = require('./auth/controller/validate');
+
 /*
 //update DB
 const Cart = require('./model/cart');
@@ -24,19 +26,19 @@ const authRouter = require('./auth/endpoint');
 app.use('/auth', authRouter);
 
 const shoppingRouter = require('./shopping/endpoint');
-app.use('/shopping', shoppingRouter);
+app.use('/shopping', ValidateToken, shoppingRouter);
 
 const accountRouter = require('./account/endpoint');
-app.use('/account', accountRouter);
+app.use('/account', ValidateToken, accountRouter);
 
 const storeRouter = require('./store/endpoint');
-app.use('/store', storeRouter);
+app.use('/store', ValidateToken, storeRouter);
 
 const historyRouter = require('./history/endpoint');
-app.use('/history', historyRouter);
+app.use('/history', ValidateToken, historyRouter);
 
 const checkoutRouter = require('./checkout/endpoint');
-app.use('/checkout', checkoutRouter);
+app.use('/checkout', ValidateToken, checkoutRouter);
 
 app.get('/', function (req, res) {
     const html = `

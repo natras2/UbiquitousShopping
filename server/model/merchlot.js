@@ -29,6 +29,17 @@ const MerchLot = db.define('MerchLot', {
         allowNull: false,
         comment: 'JSON format',
     },
+    delivery_date: {
+        type: Sequelize.DATE,
+        allowNull: false, 
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
+        comment: 'YYYY-MM-DD',
+    },
+    quantity: {
+        type: Sequelize.DECIMAL(9,3), // 99999,999 g
+        allowNull: false, 
+        comment: 'in grams, max 999999.999',
+    }
 });
 
 MerchLot.hasMany(Product, {
