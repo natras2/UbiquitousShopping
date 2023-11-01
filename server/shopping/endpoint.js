@@ -24,15 +24,17 @@ shoppingRouter.get('/cart/:idcart', async (req, res) => {
 });
 
 /*INPUT
-
+Customer ID from ValidateToken (req.uid)
+Store ID: query parameter (req.query.store_id)
 */
 // Create a new Cart 
 shoppingRouter.post('/cart/create', async (req, res) => {
     try {
-        let new_cart = await CartCreation(req.uid, req.query.storeId);
-        //if (new_cart == null) 
-
-        res.status(201).json(new_cart);
+        let new_cart = await CartCreation(req.uid, req.query.store_id);
+        if (new_cart == null)
+            res.status(400).send('There is already Cart open!');
+        else
+            res.status(201).json(new_cart);
     }  
     catch(error) {
         console.error('Error creating a Cart:', error);
@@ -42,7 +44,7 @@ shoppingRouter.post('/cart/create', async (req, res) => {
 
 
 // Scan of Merch and access to Digital label 
-shoppingRouter.get('/scan/:iddispenser', async (req, res) => {
+shoppingRouter.get('/dispenser/:iddispenser/scùan', async (req, res) => {
     try {
         //access to Merchlot
         let merchlot = await MerchAccess(req.body.iddispenser) //SET THE NAME OF THE FIELD REGARDING THE iddispenser
