@@ -1,14 +1,19 @@
 //const jwt = require('jsonwebtoken');
 //const bcrypt = require('bcrypt');
+const Dispenser = require('../../model/dispenser');
 const MerchLot = require('../../model/merchlot');
 
-async function MerchAccess(idmerchlot) {
-    const merchlot = await MerchLot.findOne({ where: { id: idmerchlot } });
+async function MerchAccess(iddispenser) {
     
-    // check if the merchlot exists
-    //if (merchlot == null){
-    //    return merchlot;}
-
+    const dispenser = await Dispenser.findOne({ 
+        where: { 
+            id: iddispenser 
+        }, 
+        include: MerchLot 
+    });
+    
+    const merchlot = dispenser.MerchLot
+   
     return merchlot;
 }
 
