@@ -1,6 +1,7 @@
 const express = require('express');
 const CartAccess = require('./controller/cart_access');
 const MerchAccess = require('./controller/merch_access');
+const CartCreation = require('./controller/cart_creation');
 const shoppingRouter = express.Router();
 
 //PROTECTED ROUTES
@@ -32,7 +33,7 @@ shoppingRouter.post('/cart/create', async (req, res) => {
     try {
         let new_cart = await CartCreation(req.uid, req.query.store_id);
         if (new_cart == null)
-            res.status(400).send('There is already Cart open!');
+            res.status(400).send('There is already a Cart open!');
         else
             res.status(201).json(new_cart);
     }  
@@ -44,10 +45,10 @@ shoppingRouter.post('/cart/create', async (req, res) => {
 
 
 // Scan of Merch and access to Digital label 
-shoppingRouter.get('/dispenser/:iddispenser/scùan', async (req, res) => {
+shoppingRouter.get('/dispenser/:iddispenser/scan', async (req, res) => {
     try {
         //access to Merchlot
-        let merchlot = await MerchAccess(req.body.iddispenser) //SET THE NAME OF THE FIELD REGARDING THE iddispenser
+        let merchlot = await MerchAccess(req.params.iddispenser, req.query.store_id)
 
         if ( merchlot == null) {
             res.status(404).send('Merch not found');

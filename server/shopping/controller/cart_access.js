@@ -4,7 +4,6 @@ const Cart = require('../../model/cart');
 const Customer = require('../../model/customer');
 const Product = require('../../model/product');
 
-
 async function CartAccess(idcart) {
     const cart = await Cart.findOne({ 
         where: { 
