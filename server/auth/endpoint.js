@@ -1,5 +1,5 @@
 const express = require('express');
-const CustomerLogin = require('./controller/login');
+const { CustomerLogin, SalesAssistantLogin } = require('./controller/login');
 const CustomerRegistration = require('./controller/registration');
 const authRouter = express.Router();
 
@@ -21,13 +21,18 @@ authRouter.post('/signup', async (req, res) => {
 
 // Log in and generate a JWT
 authRouter.post('/login', async (req, res) => {
-    if (!req.body.email_address || !req.body.password) {
+    if (!req.body.email_address || !req.body.password || !req.query.type) {
         res.status(400).send('Invalid request: email_address and password are required properties');
         return;
     }
 
     try {
-        let token = await CustomerLogin(req.body.email_address, req.body.password);
+        var token = null;
+        if (req.query.type === 'Customer') 
+            token = await CustomerLogin(req.body.email_address, req.body.password);
+        else if (req.query.type === 'SalesAssistant') 
+            token = await SalesAssistantLogin(req.body.email_address, req.body.password);
+
         if (!token || token == null) {
             res.status(401).send('Authentication failed');
         } 

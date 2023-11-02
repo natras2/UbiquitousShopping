@@ -4,12 +4,29 @@ const SalesAssistant = require("../../model/salesassistant");
 const MerchLot = require("../../model/merchlot");
 const { Op } = require("sequelize");
 
+async function LockDispenser(store_id, dispenser_id) {
+    const dispenser = await Dispenser.findOne({ 
+        where: { 
+            id: dispenser_id,
+            store_id: store_id,
+            is_locked: false
+        }
+    });
+    if (!dispenser || dispenser == null)
+        return [ false, "The dispenser doesn't exist or it is already in use"];
+    
+    dispenser.is_locked = true;
+    await dispenser.save();
+
+    return [ true ];
+}
+
 async function RefillDispenser(sa_id, store_id, dispenser_id, merchlot_id) {
     const dispenser = await Dispenser.findOne({ 
         where: {
             id: dispenser_id,
-            is_locked: true,
             store_id: store_id,
+            is_locked: true,
         },
         include: [{ 
             model: Store, 
@@ -19,7 +36,8 @@ async function RefillDispenser(sa_id, store_id, dispenser_id, merchlot_id) {
         }]
     });
  
-    if (!dispenser || dispenser == null) return [ false, "The dispenser doesn't exist" ];
+    if (!dispenser || dispenser == null) 
+        return [ false, "The dispenser doesn't exist" ];
     
     // check if the dispenser to modify is in the same store as the sales assistant
     let found = false;
@@ -31,12 +49,27 @@ async function RefillDispenser(sa_id, store_id, dispenser_id, merchlot_id) {
     // check if the istance of the current merchlot in dispenser is empty
     const merchlot = await MerchLot.findByPk(dispenser.merchlot_id);
 
-    const refill = async (weight) => {
-        dispenser.current_weight = weight;
-        await dispenser.save();
+    const read_weight_mock = async (min, max) => {
+        return parseFloat(Math.random() * (max - min) + min).toFixed(3);
     };
 
-    if (merchlot.quantity == 0) {
+    if (merchlot.quantity > 0) {
+        /**********************************
+         * READ WEIGHT FROM WEIGHT SENSOR *
+         **********************************/
+        let max_weight = (merchlot.quantity < (99999.999 - dispenser.current_weight)) 
+            ? merchlot.quantity 
+            : (99999.999 - dispenser.current_weight);
+
+        // For the only purpose of demo we read the weight from a function taking in input the interval weight to allocate
+        let weight = await read_weight_mock(dispenser.current_weight, max_weight); 
+
+        merchlot.quantity -= (weight - dispenser.current_weight);
+        await merchlot.save();
+
+        dispenser.current_weight = weight;
+    }
+    else {
         // starts the provisioning of a quantity of another merch lot
         if (!merchlot_id || merchlot_id == null) 
             return [ false, "The id of the merch lot is mandatory as the Dispenser cannot be refilled with an istance of the latter merch lot" ];
@@ -48,18 +81,36 @@ async function RefillDispenser(sa_id, store_id, dispenser_id, merchlot_id) {
                 '$Store.id$': store_id,
                 '$Dispenser.id$': null
             },
-            include: [{
-                model: [ Dispenser, Store ]
-            }]
+            include: [
+                { model: Dispenser },
+                { model: Store }
+            ]
         });
         if (new_merchlot == null) 
             return [ false, "The selected merch lot is not suitable to be used" ];
 
-        
+        /**********************************
+         * READ WEIGHT FROM WEIGHT SENSOR *
+         **********************************/
+        let max_weight = (merchlot.quantity < (99999.999 - dispenser.current_weight)) 
+            ? merchlot.quantity 
+            : (99999.999 - dispenser.current_weight);
 
+        // For the only purpose of demo we read the weight from a function taking in input the interval weight to allocate
+        let weight = await read_weight_mock(dispenser.current_weight, max_weight); 
 
-    }     
-    refill(added_weight);
+        new_merchlot.quantity -= (weight - dispenser.current_weight);
+        await new_merchlot.save();
+
+        dispenser.current_weight = weight;
+    } 
+    dispenser.is_locked = false;
+    await dispenser.save();
+
+    return [ true ];
 }
 
-module.exports = RefillDispenser;
+module.exports = {
+    RefillDispenser,
+    LockDispenser
+};

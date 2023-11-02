@@ -43,6 +43,23 @@ shoppingRouter.post('/cart/create', async (req, res) => {
     }
 });
 
+/* INPUT
+   - idcart: URL param
+   - dispenser_id: query param
+ */
+// Add a product to the cart
+shoppingRouter.put('/cart/:idcart/add', async (req, res) => {
+    try {
+        //the controller returns a bool value 
+        let [ result, error ] = await AddProduct(req.params.idcart, req.query.dispenser_id);
+        
+        if (result) res.status(200);
+        else res.status(400).send(error);
+    }
+    catch(error) {
+        res.status(500).send('An error occurred while adding a product to the cart. '+ err);
+    }
+});
 
 // Scan of Merch and access to Digital label 
 shoppingRouter.get('/dispenser/:iddispenser/scan', async (req, res) => {
@@ -59,6 +76,20 @@ shoppingRouter.get('/dispenser/:iddispenser/scan', async (req, res) => {
     } 
     catch(err) {
         res.status(500).send('Error in accessing to Merch. '+ err);
+    }
+});
+
+// Lock the Dispenser before the Merch extraction
+shoppingRouter.put('/dispenser/:iddispenser/lock', async (req, res) => {
+    try {
+        //the controller returns a bool value 
+        let [ result, error ] = await LockDispenser(req.params.idstore, req.params.iddispenser);
+        
+        if (result) res.status(200);
+        else res.status(400).send(error);
+    }
+    catch (error) {
+        res.status(500).send('Error while locking a dispenser. '+ error);
     }
 });
 

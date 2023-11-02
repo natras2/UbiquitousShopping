@@ -15,7 +15,12 @@ function ValidateToken(req, res, next) {
             console.error(err);
             return res.sendStatus(403); // Forbidden
         } 
-        req.uid = out.uid;
+        
+        if (out.type === 'Customer')
+            req.uid = out.id;
+        else if (out.type === 'SalesAssistant')
+            req.said = out.id;
+
         next();
     });
 }
