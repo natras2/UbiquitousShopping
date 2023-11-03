@@ -5,9 +5,10 @@ const CartCreation = require('./controller/cart_creation');
 const { LockDispenser, AddProduct } = require('./controller/product_addition');
 const shoppingRouter = express.Router();
 
-//PROTECTED ROUTES
-
 // Access to a Cart
+/*INPUT
+ID Cart: from URL (req.params.iddispenser)
+*/
 shoppingRouter.get('/cart/:idcart', async (req, res) => {
     try {
         //access to Cart
@@ -25,11 +26,11 @@ shoppingRouter.get('/cart/:idcart', async (req, res) => {
     }
 });
 
+// Create a new Cart
 /*INPUT
 Customer ID from ValidateToken (req.uid)
 Store ID: query parameter (req.query.store_id)
-*/
-// Create a new Cart 
+*/ 
 shoppingRouter.post('/cart/create', async (req, res) => {
     try {
         let new_cart = await CartCreation(req.uid, req.query.store_id);
@@ -63,16 +64,21 @@ shoppingRouter.put('/cart/:idcart/add', async (req, res) => {
 });
 
 // Scan of Merch and access to Digital label 
+/*INPUT
+ID Dispenser: from URL (req.params.iddispenser)
+Store ID: query parameter (req.query.store_id)
+*/
 shoppingRouter.get('/dispenser/:iddispenser/scan', async (req, res) => {
     try {
+        
         //access to Merchlot
-        let merchlot = await MerchAccess(req.params.iddispenser, req.query.store_id)
+        let merch = await MerchAccess(req.params.iddispenser, req.query.store_id)
 
-        if ( merchlot == null) {
+        if ( merch == null) {
             res.status(404).send('Merch not found');
         } 
         else {
-            res.status(200).json({ merchlot });
+            res.status(200).json({ merch });
         }
     } 
     catch(err) {
