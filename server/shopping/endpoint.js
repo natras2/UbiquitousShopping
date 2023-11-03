@@ -2,6 +2,7 @@ const express = require('express');
 const CartAccess = require('./controller/cart_access');
 const MerchAccess = require('./controller/merch_access');
 const CartCreation = require('./controller/cart_creation');
+const { LockDispenser, AddProduct } = require('./controller/product_addition');
 const shoppingRouter = express.Router();
 
 //PROTECTED ROUTES
@@ -51,13 +52,13 @@ shoppingRouter.post('/cart/create', async (req, res) => {
 shoppingRouter.put('/cart/:idcart/add', async (req, res) => {
     try {
         //the controller returns a bool value 
-        let [ result, error ] = await AddProduct(req.params.idcart, req.query.dispenser_id);
+        let [ result, error ] = await AddProduct(req.uid, req.params.idcart, req.query.dispenser_id);
         
-        if (result) res.status(200);
+        if (result) res.status(200).send('All clear');
         else res.status(400).send(error);
     }
     catch(error) {
-        res.status(500).send('An error occurred while adding a product to the cart. '+ err);
+        res.status(500).send('An error occurred while adding a product to the cart. '+ error);
     }
 });
 
@@ -83,9 +84,9 @@ shoppingRouter.get('/dispenser/:iddispenser/scan', async (req, res) => {
 shoppingRouter.put('/dispenser/:iddispenser/lock', async (req, res) => {
     try {
         //the controller returns a bool value 
-        let [ result, error ] = await LockDispenser(req.params.idstore, req.params.iddispenser);
+        let [ result, error ] = await LockDispenser(req.query.idstore, req.params.iddispenser);
         
-        if (result) res.status(200);
+        if (result) res.status(200).send('All clear');
         else res.status(400).send(error);
     }
     catch (error) {

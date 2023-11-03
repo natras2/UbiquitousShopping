@@ -37,32 +37,43 @@ async function RefillDispenser(sa_id, store_id, dispenser_id, merchlot_id) {
     });
  
     if (!dispenser || dispenser == null) 
-        return [ false, "The dispenser doesn't exist" ];
+        return [ false, "The dispenser doesn't exist or it is not locked" ];
     
     // check if the dispenser to modify is in the same store as the sales assistant
     let found = false;
     dispenser.Store.SalesAssistants.forEach(sa => {
         if (sa.id == sa_id) found = true;
     }); 
-    if (!found) return [ false, "The Sales Assistant is not authorized to perform this operation" ];
+    if (!found) 
+        return [ false, "The Sales Assistant is not authorized to perform this operation" ];
     
     // check if the istance of the current merchlot in dispenser is empty
     const merchlot = await MerchLot.findByPk(dispenser.merchlot_id);
 
-    const read_weight_mock = async (min, max) => {
+    const read_weight_mock = (current_weight, merchlot_weight) => {
+        //parse the input
+        current_weight = parseFloat(current_weight);
+        merchlot_weight = parseFloat(merchlot_weight);
+
+        let min = current_weight;
+        let max = Math.min((current_weight + merchlot_weight), 99999.999);
+
+        console.log('Min weight: '+ min +'g');
+        console.log('Max weight: '+ max +'g');
+
         return parseFloat(Math.random() * (max - min) + min).toFixed(3);
     };
 
     if (merchlot.quantity > 0) {
+        console.log('Merch Lot remaining quantity: '+ merchlot.quantity + 'g');
+        console.log('Current merch in the dispenser: ' + dispenser.current_weight + 'g');
+
         /**********************************
          * READ WEIGHT FROM WEIGHT SENSOR *
          **********************************/
-        let max_weight = (merchlot.quantity < (99999.999 - dispenser.current_weight)) 
-            ? merchlot.quantity 
-            : (99999.999 - dispenser.current_weight);
-
         // For the only purpose of demo we read the weight from a function taking in input the interval weight to allocate
-        let weight = await read_weight_mock(dispenser.current_weight, max_weight); 
+        let weight = read_weight_mock(dispenser.current_weight, merchlot.quantity); 
+        console.log('Read weight: '+ weight +'g');
 
         merchlot.quantity -= (weight - dispenser.current_weight);
         await merchlot.save();
@@ -89,19 +100,20 @@ async function RefillDispenser(sa_id, store_id, dispenser_id, merchlot_id) {
         if (new_merchlot == null) 
             return [ false, "The selected merch lot is not suitable to be used" ];
 
+        console.log('Merch Lot remaining quantity: '+ new_merchlot.quantity + 'g');
+        console.log('Current merch in the dispenser: ' + dispenser.current_weight + 'g');
+
         /**********************************
          * READ WEIGHT FROM WEIGHT SENSOR *
          **********************************/
-        let max_weight = (merchlot.quantity < (99999.999 - dispenser.current_weight)) 
-            ? merchlot.quantity 
-            : (99999.999 - dispenser.current_weight);
-
         // For the only purpose of demo we read the weight from a function taking in input the interval weight to allocate
-        let weight = await read_weight_mock(dispenser.current_weight, max_weight); 
+        let weight = read_weight_mock(dispenser.current_weight, new_merchlot.quantity); 
+        console.log('Read weight: '+ weight +'g');
 
         new_merchlot.quantity -= (weight - dispenser.current_weight);
         await new_merchlot.save();
 
+        dispenser.merchlot_id = new_merchlot.id;
         dispenser.current_weight = weight;
     } 
     dispenser.is_locked = false;

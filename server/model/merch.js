@@ -26,9 +26,9 @@ const Merch = db.define('Merch', {
         comment: 'in grams, max 99999.999',
     },
     price_per_milligram: {
-        type: Sequelize.DECIMAL(7,5), // 99,99999 €
+        type: Sequelize.DECIMAL(10,9), // 9,999999999 €
         allowNull: false, 
-        comment: 'in euro, max 99.99999',
+        comment: 'in euro, max 9.999999999',
     },
     discriminant: {
         type: Sequelize.STRING,
