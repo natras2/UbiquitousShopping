@@ -12,11 +12,15 @@ async function MerchAccess(iddispenser, store_id) {
         }, 
         include: [{ 
             model: MerchLot,
-            include: [{ 
+            include: { 
                 model: Merch 
-            }]
+            }
         }]
     });
+
+    if(dispenser == null){
+        return null;
+    }
     
     const result = {
         name: dispenser.MerchLot.Merch.name,
