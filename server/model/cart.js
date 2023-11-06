@@ -12,6 +12,7 @@ const Cart = db.define('Cart', {
         type: Sequelize.DATE,
         allowNull: false, 
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
+        comment: 'YYYY-MM-DD',
     },
     is_closed: {
         type: Sequelize.BOOLEAN,

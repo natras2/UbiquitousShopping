@@ -48,6 +48,7 @@ const Customer = db.define('Customer', {
         type: Sequelize.DATE,
         allowNull: false, 
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
+        comment: 'YYYY-MM-DD',
     },
     email_confirmed: {
         type: Sequelize.BOOLEAN,

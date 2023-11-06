@@ -7,6 +7,10 @@ async function CustomerRegistration(data) {
 
     const hashedPassword = await bcrypt.hash(data.password, salt);
 
+    // check if the email address already exists
+    if (await Customer.findOne({ where: { email_address: data.email_address } }) !== null) 
+        return null;
+
     const newCustomer = await Customer.create({
         name: data.name,
         surname: data.surname,
@@ -15,7 +19,7 @@ async function CustomerRegistration(data) {
         id_type: data.id_type,
         id_number: data.id_number,
         email_address: data.email_address,
-        hashed_password: hashedPassword
+        hashed_password: hashedPassword,
     });
     
     return newCustomer;
