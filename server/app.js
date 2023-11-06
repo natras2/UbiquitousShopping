@@ -4,6 +4,10 @@ var app = express();
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 
+const cors = require('cors');
+app.use(cors());
+
+
 const ValidateToken = require('./auth/controller/validate');
 
 /*
