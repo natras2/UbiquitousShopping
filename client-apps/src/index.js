@@ -11,7 +11,7 @@ import { PasswordForgotten, default as Login } from './customers/Login';
 import SALogin from './salesassistants/Login';
 import Register from './customers/Register';
 import PersonalArea from './customers/PersonalArea';
-// import Landing from './Landing';
+import Cart from './customers/Cart';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -26,6 +26,10 @@ root.render(
                 </Route>
                 <Route path='signup' element={<Register />} />
                 <Route path='home' element={<PersonalArea page='Home' />} />
+                <Route path='scan' element={<PersonalArea page='Scan' />} />
+                <Route path='cart' element={<Cart />} />
+                <Route path='history' element={<PersonalArea page='History' />} />
+                <Route path='profile' element={<PersonalArea page='Profile' />} />
 
                 {/* Sales assistant routes */}
                 <Route path='sa'>

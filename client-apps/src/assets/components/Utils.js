@@ -8,15 +8,15 @@ export const encryptPassword = (password) => {
 const API_ENDPOINTS = {
     Login: {
         method: 'POST',
-        url: 'http://api.ubishop.it/auth/login',
+        url: 'https://api.ubishop.it/auth/login',
     },
     Signup: {
         method: 'POST',
-        url: 'http://api.ubishop.it/auth/signup',
+        url: 'https://api.ubishop.it/auth/signup',
     },
     GetAccountInformation: {
         method: 'GET',
-        url: 'http://api.ubishop.it/account',
+        url: 'https://api.ubishop.it/account',
     },
 };
 

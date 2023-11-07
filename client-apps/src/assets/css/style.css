@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;600;700&display=swap');
+
 html, body {
     height: 100%;
     position: relative;
@@ -169,4 +171,115 @@ a:not(.btn) {
     position: absolute;
     left: 0px;
     margin-top:3px;
+}
+
+
+/* -------------- PERSONAL AREA: HOME --------------- */
+#personalarea>#home {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+#personalarea>#home .welcome-text {
+    font-size: 20px;
+    color: #232323;
+}
+#personalarea>#home .localization-banner {
+    position: absolute;
+    bottom: 0;
+    height: 270px;
+    background: #9AB522;
+    width: 100%;
+    left: 0;
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+    color:#F9F9F9;
+    padding: 1.5rem;
+}
+#personalarea>#home .localization-banner .subtitle {
+    font-weight:200;
+    font-size:22px;
+}
+#personalarea>#home .localization-banner .shop {
+    font-family: 'Quicksand', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+    font-weight:800;
+    font-size:28px;
+    margin-top:-2px
+}
+#personalarea>#home .localization-banner .shop svg {
+    margin-top: -6px;
+}
+#personalarea>#home .localization-banner .new-cart {
+    position:absolute;
+    bottom:-5px;
+    left:0px;
+    width:100%;
+    text-align:center;
+    bottom: 135px;
+    font-weight:600;
+    color:#123B14;
+}
+
+/*******************************
+ ********* COMPONENTS **********
+ *******************************/
+ #customer-bottom-navbar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding:1.5em 2em 2.5em;
+    font-size:13px;
+    background-color: white;
+    border-top-left-radius:25px;
+    border-top-right-radius:25px;
+    color: #9DB2CE;
+}
+#customer-bottom-navbar > div {
+    text-align:center;
+    min-width: 65px;
+    cursor: pointer;
+}
+#customer-bottom-navbar > div.active {
+    color:#123B14 !important;
+}
+#customer-bottom-navbar > div svg {
+    font-size: 20px;
+}
+#customer-bottom-navbar > div .item-name {
+    margin-top:.5rem;
+}
+#customer-bottom-navbar > .cart-button {
+    position:relative;
+    width:90px;
+}
+#customer-bottom-navbar > .cart-button > div {
+    position:absolute;
+    width:100px;
+    height:100px;
+    border-radius:100%;
+    background-color:#9AB522;
+    bottom:-30px;
+    left:-5px;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    border: 8px solid white;
+}
+#customer-bottom-navbar > .cart-button > div > div {
+    background-color:#123B14;
+    width:calc(100% - 12px);
+    height:calc(100% - 12px);
+    color:white;
+    border-radius:100%;
+    display:flex;
+    align-items: center;
+    justify-content: center;
 }
