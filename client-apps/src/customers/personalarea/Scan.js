@@ -37,7 +37,6 @@ function Scanner(props) {
                         audio: false,
                         video: { facingMode: "environment" }
                     }}
-                   // onLoad={checkDimensions}
                 />
             </div>
         </div>
@@ -45,9 +44,19 @@ function Scanner(props) {
 }
 
 function DigitalLabel(props) {
+    /* MOCK DATA
+    let props = {
+        data: {
+            merch: {
+                name: 'Lenticchie IGP',
+                expiration_date: '2',
+            }
+        }
+    };*/
+
     return (
         <div className="digitallabel">
-            {props.data.name} {props.data.expiration_date}
+            {props.data.merch.name} - {props.data.merch.expiration_date}
         </div>
     );
 }
@@ -62,11 +71,12 @@ function Scan() {
 
         const response = await makeAPIRequest('GetDigitalLabel', null, { 
             iddispenser: readData.iddispenser, 
-            store_id: sessionStorage.getItem('store_id')
+            store_id: JSON.parse(sessionStorage.getItem('store')).id
         }, true);
 
         if (response.code === 200) {
-            setData(JSON.parse(response.body));
+            console.log(response.body);
+            setData(response.body);
             setScanning(false);
         }
         else {

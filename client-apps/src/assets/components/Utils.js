@@ -35,7 +35,7 @@ function replaceParameters(url, parameters) {
                     delete parameters[paramName];
                 }
                 else {
-                    return false;
+                    return null;
                 }
             });
         }
@@ -46,7 +46,7 @@ function replaceParameters(url, parameters) {
         return null;
     }
     else {
-        return null;
+        return url;
     }
 }
 

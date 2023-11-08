@@ -15,7 +15,7 @@ function Home() {
             </div>
             <div className="bottom-content localization-banner">
                 <div className="subtitle">It looks like you're in</div>
-                <div className="shop"><FaLocationDot /> Torino Lingotto</div>
+                <div className="shop"><FaLocationDot /> {JSON.parse(sessionStorage.getItem('store')).name}</div>
                 <div className="new-cart">New cart</div>
             </div>
         </div>
