@@ -200,7 +200,7 @@ a:not(.btn) {
 }
 #personalarea>#home .localization-banner .subtitle {
     font-weight:200;
-    font-size:22px;
+    font-size:20px;
 }
 #personalarea>#home .localization-banner .shop {
     font-family: 'Quicksand', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -224,6 +224,40 @@ a:not(.btn) {
     color:#123B14;
 }
 
+/* -------------- PERSONAL AREA: SCAN --------------- */
+#personalarea>#scan {
+    width: 100%;
+    height: 100%;
+}
+#personalarea>#scan > .scanner {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+}
+#personalarea>#scan > .scanner > .camera-wrapper {
+    height:300px;
+    width:300px;
+    overflow: hidden;
+    border: 5px solid #EAC199;
+    border-radius: 20px;
+    background-color: white;
+}
+#personalarea>#scan > .scanner > .camera-wrapper > .camera {
+    position: relative;
+    height: 300px;
+    object-fit: cover;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+@media screen and (max-width: 767px) {
+    #personalarea>#scan > .scanner > .camera-wrapper > .camera {
+      width: 300px;
+      height: auto;
+    }
+  }
+  
 /*******************************
  ********* COMPONENTS **********
  *******************************/
@@ -282,4 +316,14 @@ a:not(.btn) {
     display:flex;
     align-items: center;
     justify-content: center;
+}
+
+.loader {
+    display: flex;
+    justify-content: center;
+    height: 100%;
+    align-items: center;
+}
+.loader > svg {
+    transform: scale(1.3);
 }

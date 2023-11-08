@@ -18,6 +18,10 @@ const API_ENDPOINTS = {
         method: 'GET',
         url: 'https://api.ubishop.it/account',
     },
+    GetDigitalLabel: {
+        method: 'GET',
+        url: 'https://api.ubishop.it/shopping/dispenser/{iddispenser}/scan',
+    },
 };
 
 function replaceParameters(url, parameters) {
@@ -37,12 +41,12 @@ function replaceParameters(url, parameters) {
         }
 
         if (!url.includes('{'))
-            return true;
+            return url;
 
-        return false;
+        return null;
     }
     else {
-        return true;
+        return null;
     }
 }
 
@@ -54,10 +58,11 @@ export async function makeAPIRequest(operation, serializedData, parameters, isPr
     }
 
     const method = API_ENDPOINTS[operation].method;
-    let url = API_ENDPOINTS[operation].url;
+    var url = API_ENDPOINTS[operation].url;
 
     if (parameters != null) {
-        if (!replaceParameters(url, parameters)) {
+        url = replaceParameters(url, parameters);
+        if (url === null) {
             return { code: 0 };
         }
 
