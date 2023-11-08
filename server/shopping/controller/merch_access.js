@@ -30,8 +30,8 @@ async function MerchAccess(iddispenser, store_id) {
         price_per_milligram: dispenser.MerchLot.Merch.price_per_milligram,
         vendor: dispenser.MerchLot.vendor,
         expiration_date: dispenser.MerchLot.expiration_date,
-        traceability_info: JSON.stringify(dispenser.MerchLot.traceability_info),
-        nutritional_info: JSON.stringify(dispenser.MerchLot.nutritional_info)
+        traceability_info: JSON.parse(dispenser.MerchLot.traceability_info),
+        nutritional_info: JSON.parse(dispenser.MerchLot.nutritional_info)
     }
    
     return result;
