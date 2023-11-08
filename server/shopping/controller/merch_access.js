@@ -2,6 +2,7 @@
 //const bcrypt = require('bcrypt');
 const Dispenser = require('../../model/dispenser');
 const MerchLot = require('../../model/merchlot');
+const Merch = require('../../model/merch');
 
 async function MerchAccess(iddispenser, store_id) {
     
