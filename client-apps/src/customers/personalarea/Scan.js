@@ -2,8 +2,7 @@ import { useState } from "react";
 import QrReader from 'react-qr-scanner';
 import Loader from "../../assets/components/Loader";
 import { makeAPIRequest } from "../../assets/components/Utils";
-import { FaArrowLeft, FaLocationDot, FaHashtag, FaTag, FaHourglassHalf, FaCompass } from "react-icons/fa6";
-import DefaultButton from "../../assets/components/DefaultButton";
+import { FaArrowLeft, FaLocationDot, FaHashtag, FaTag, FaHourglassHalf, FaCompass, FaCircleInfo } from "react-icons/fa6";
 
 function Scanner(props) {
 
@@ -28,6 +27,7 @@ function Scanner(props) {
 
     return (
         <div className="scanner">
+            <div className="title">Scan a dispenser QR code</div>
             <div className="camera-wrapper">
                 <QrReader
                     facingmode='rear'
@@ -41,12 +41,16 @@ function Scanner(props) {
                     }}
                 />
             </div>
+            <div className="description-box">
+                <FaCircleInfo />
+                <div className="description">Retrieve the Digital Label of the product: the useful informations about the merch in the dispenser, like the price, the expiration date, the nutritional and traceability information.</div>
+            </div>
         </div>
     )
 }
 
-function DigitalLabel() { //ADD PROPS AS PARAMETER
-     //COMMENT THIS
+function DigitalLabel(props) { //ADD PROPS AS PARAMETER
+     /*
     let props = {
         hasBack: true,
         goBack: '',
@@ -82,6 +86,10 @@ function DigitalLabel() { //ADD PROPS AS PARAMETER
             }
         }
     };
+    */
+
+    const date = new Date(Date.parse(props.data.merch.expiration_date));
+    const dateCheck = (date - new Date()) / 1000 / 60 / 60 / 24;
 
     const formatter = new Intl.NumberFormat('it-IT', {
         style: 'currency',
@@ -92,8 +100,8 @@ function DigitalLabel() { //ADD PROPS AS PARAMETER
     const nutritionalInfo = Object.keys(props.data.merch.nutritional_info);
     for (let i = 0; i < Math.min( nutritionalInfo.length, 8); i++) {
         nutritionalList.push(
-            <div className="nutritional-record">
-                <div className="nutritional-property">{nutritionalInfo[i]}</div>
+            <div key={nutritionalInfo[i]} className="nutritional-record">
+                <div className="nutritional-property">{nutritionalInfo[i].replace('_', ' ')}</div>
                 <div className="nutritional-value">{props.data.merch.nutritional_info[nutritionalInfo[i]]}</div>
             </div>
         );
@@ -102,7 +110,7 @@ function DigitalLabel() { //ADD PROPS AS PARAMETER
     return (
         <>
             { props.hasBack && 
-                <div className="back-button" onClick={props.goBack}> 
+                <div className="back-button" onClick={() => props.goBack()}> 
                     <FaArrowLeft /> {props.textBack}
                 </div>
             }
@@ -110,19 +118,17 @@ function DigitalLabel() { //ADD PROPS AS PARAMETER
                 <div className="name">{props.data.merch.name}</div>
                 <div className="merchlot-info">
                     <div className="store-name"><FaLocationDot /> {JSON.parse(sessionStorage.getItem('store')).name}</div>
-                    <div className="merchlot-id"><FaHashtag /> Lot number: {props.data.merch.traceability_info.lot_number}</div>
+                    <div className="merchlot-id"><FaHashtag /> Lot: {props.data.merch.traceability_info.lot_number}</div>
                 </div>
                 <div className="price"><FaTag /> {formatter.format((props.data.merch.price_per_milligram * 1000000))} per kg</div>
                 <div className="description">{props.data.merch.description}</div>
                 <div className="info-cards">
-                    <div className="best-before">
-                        <FaHourglassHalf />
-                        <div className="intro">Best before</div>
-                        <div className="main">{new Date(Date.parse(props.data.merch.expiration_date)).toLocaleDateString('it-IT')}</div>
+                    <div className={`best-before ${ (dateCheck < 3) ? 'critical': (dateCheck < 3) ? 'warning' : '' }`}>
+                        <div className="intro"><FaHourglassHalf /> Best before</div>
+                        <div className="main">{date.toLocaleDateString('it-IT')}</div>
                     </div>
                     <div className="traceability-infos">
-                        <FaCompass />
-                        <div className="intro">Know the artisan</div>
+                        <div className="intro"><FaCompass /> Know the artisan</div>
                         <div className="main">{props.data.merch.vendor}</div>
                     </div>
                 </div>
@@ -133,14 +139,13 @@ function DigitalLabel() { //ADD PROPS AS PARAMETER
                         {nutritionalList}
                     </div>
                 </div>
-                <DefaultButton />
             </div>
         </>
     );
 }
 
 function Scan() {
-    const [scanning, setScanning] = useState(false); //SWITCH BACK TO TRUE
+    const [scanning, setScanning] = useState(true); //SWITCH BACK TO TRUE
     const [processing, setProcessing] = useState(false);
     const [data, setData] = useState(null);
 
