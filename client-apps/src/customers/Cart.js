@@ -90,7 +90,7 @@ function CartManagement(props) {
             total += parseFloat(item.price);
 
             productList.push(
-                <div key={item.id} className="product-item" onClick={() => showDigitalLabel(1)}> {/*item.MerchLot.Dispenser.id)}>*/}
+                <div key={item.id} className="product-item" onClick={() => showDigitalLabel(item.MerchLot.Dispenser.id)}>
                     <div className="product-info">
                         <div className="name">{item.name}</div>
                         <div className="weight"><FaWeightScale /> {("" + parseFloat(item.weight / 1000).toFixed(2)).replace('.', ',')} kg</div>
