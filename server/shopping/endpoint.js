@@ -12,7 +12,7 @@ ID Cart: from URL (req.params.iddispenser)
 shoppingRouter.get('/cart/:idcart', async (req, res) => {
     try {
         //access to Cart
-        let cart = await CartAccess(req.params.idcart)
+        let cart = await CartAccess(req.uid, req.params.idcart);
 
         if (cart == null) {
             res.status(404).send('Cart not found');
@@ -35,13 +35,13 @@ shoppingRouter.post('/cart/create', async (req, res) => {
     try {
         let new_cart = await CartCreation(req.uid, req.query.store_id);
         if (new_cart == null)
-            res.status(400).send('There is already a Cart open!');
+            res.status(400).send('The customer already has an open cart');
         else
             res.status(201).json(new_cart);
     }  
     catch(error) {
-        console.error('Error creating a Cart:', error);
-        res.status(500).send('Error in creating a Cart. '+ error);
+        console.error('Error creating a cart:', error);
+        res.status(500).send('Error in creating a cart. '+ error);
     }
 });
 

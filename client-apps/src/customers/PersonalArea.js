@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router";
 import { makeAPIRequest } from "../assets/components/Utils";
 import { FaHouse } from "react-icons/fa6";
 import { FaMagnifyingGlass } from "react-icons/fa6";
@@ -6,11 +7,9 @@ import { FaCartShopping } from "react-icons/fa6";
 import { FaClockRotateLeft } from "react-icons/fa6";
 import { FaUser } from "react-icons/fa6";
 import Home from "./personalarea/Home";
-import { useNavigate } from "react-router";
+import Scan from "./personalarea/Scan";
+import Loader from "../assets/components/Loader";
 
-function Scan() {
-
-}
 function History() {
 
 }
@@ -57,27 +56,30 @@ export default function PersonalArea(props) {
             const response = await makeAPIRequest('GetAccountInformation', null, null, true);
 
             if (response.code === 200) {
+                sessionStorage.setItem('store', JSON.stringify({ id: 1, name: 'Torino Lingotto', }));
                 sessionStorage.setItem('account', JSON.stringify(response.body));
             }
             else {
                 console.error(`API request failed with code ${response.code}:`, response.body);
             }
+            setLoading(false);
         }
         if (!sessionStorage.getItem('account') || sessionStorage.getItem('account') === null)
             fetchData();
-
-        setLoading(false);
+        else
+            setLoading(false);
+        
     }, []);
 
     const handleCurrentPage = (target) => {
         setPage(target);
-        navigate('../scan', { replace: true });
+        navigate('../' + target.toLowerCase());
     }
-
+    
     if (loading) {
-        return;
+        return <Loader />;
     }
-
+    
     return (
         <div id='personalarea' className='page'>
             {page === 'Home' && <Home />}
@@ -87,4 +89,5 @@ export default function PersonalArea(props) {
             <CustomerBottomNavbar active={page} handler={handleCurrentPage} />
         </div>
     );
+    
 }

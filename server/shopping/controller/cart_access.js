@@ -2,29 +2,29 @@
 //const bcrypt = require('bcrypt');
 const Cart = require('../../model/cart');
 const Product = require('../../model/product');
+const MerchLot = require('../../model/merchlot');
+const Dispenser = require('../../model/dispenser');
 
-async function CartAccess(idcart) {
+async function CartAccess(uid, idcart) {
     const cart = await Cart.findOne({ 
         where: { 
-            id: idcart 
+            id: idcart,
+            customer_id: uid
         }, 
         include: [{
-            model: Product
+            model: Product,
+            include: [{
+                model: MerchLot,
+                attributes:['id'],
+                include: [{
+                    model: Dispenser,
+                    attributes:['id'],
+                }]
+            }]
         }] 
     });
     
     return cart;
-    
-    /*const result = {
-        id: cart.id,
-        idcust: cart.customer_id,
-        idstore: cart.store_id,
-        idproduct: cart.Product.id,
-        name: cart.Product.name,
-        weight: cart.Product.weight,
-        price: cart.Product.price
-    }
-    return result;*/
 }
 
 module.exports = CartAccess;

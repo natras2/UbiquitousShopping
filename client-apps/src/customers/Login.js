@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import DefaultButton from "../assets/components/DefaultButton";
 import InputField from "../assets/components/InputField";
+import Loader from "../assets/components/Loader";
 import { makeAPIRequest, encryptPassword } from "../assets/components/Utils";
 
 export function PasswordForgotten() {
@@ -34,10 +35,13 @@ export default function Login() {
         email: '',
         password: '',
     });
+    const [processing, setProcessing] = useState(false);
     
     const navigate = useNavigate();
 
     async function handleSubmit(e) {
+        setProcessing(true);
+
         // Prevent the browser from reloading the page
         e.preventDefault();
 
@@ -58,6 +62,7 @@ export default function Login() {
         } 
         else {
             console.error(`API request failed with code ${response.code}:`, response.body);
+            setProcessing(false);
         }
     }
 
@@ -72,25 +77,30 @@ export default function Login() {
     }
 
     return (
-        <div id='login' className='page'>
-            <form method="post" onSubmit={handleSubmit}>
-                <div className='top-container'>
-                    <h1 className="mb-4">Sign-in</h1>
-                    <InputField type="email" placeholder="E-mail address" name="email" value={data.email} handleChange={handleChange} isRegistering='false' />
-                    <InputField type="password" placeholder="Password" name="password" value={data.password} handleChange={handleChange} isRegistering='false' />
-                    <Link to="recover" className="float-end">
-                        Password forgotten?
-                    </Link>
-                </div>
-                <div className='bottom-container buttons'>
-                    <DefaultButton to='#' text='Sign-in to your account' icon='' isCentered='true' isLarge='true' isButton='true' isSubmit='true' />
-                    <div className="divider"></div>
-                    <Link to="../signup">
-                        Create a new account
-                    </Link>
-                </div>
-            </form>
-        </div>
+        <>
+            <div id='login' className='page'>
+                <form method="post" onSubmit={handleSubmit}>
+                    <div className='top-container'>
+                        <h1 className="mb-4">Sign-in</h1>
+                        <InputField type="email" placeholder="E-mail address" name="email" value={data.email} handleChange={handleChange} isRegistering='false' />
+                        <InputField type="password" placeholder="Password" name="password" value={data.password} handleChange={handleChange} isRegistering='false' />
+                        <Link to="recover" className="float-end">
+                            Password forgotten?
+                        </Link>
+                    </div>
+                    <div className='bottom-container buttons'>
+                        <DefaultButton to='#' text='Sign-in to your account' icon='' isCentered='true' isLarge='true' isButton='true' isSubmit='true' />
+                        <div className="divider"></div>
+                        <Link to="../signup">
+                            Create a new account
+                        </Link>
+                    </div>
+                </form>
+            </div>
+            {processing && 
+            <Loader selector='login'/>
+            }
+        </>
     );
 }
 

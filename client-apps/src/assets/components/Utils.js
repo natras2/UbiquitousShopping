@@ -5,19 +5,41 @@ export const encryptPassword = (password) => {
     return sha256(password);
 }
 
+const baseUrl = 'https://api.ubishop.it';
+
 const API_ENDPOINTS = {
     Login: {
         method: 'POST',
-        url: 'https://api.ubishop.it/auth/login',
+        url: baseUrl + '/auth/login',
     },
     Signup: {
         method: 'POST',
-        url: 'https://api.ubishop.it/auth/signup',
+        url: baseUrl + '/auth/signup',
     },
     GetAccountInformation: {
         method: 'GET',
-        url: 'https://api.ubishop.it/account',
+        url: baseUrl + '/account',
     },
+    GetDigitalLabel: {
+        method: 'GET',
+        url: baseUrl + '/shopping/dispenser/{iddispenser}/scan',
+    },
+    GenerateCart: {
+        method: 'POST',
+        url: baseUrl + '/shopping/cart/create',
+    },
+    GetCart: {
+        method: 'GET',
+        url: baseUrl + '/shopping/cart/{idcart}',
+    },
+    LockDispenser: {
+        method: 'PUT',
+        url: baseUrl + '/shopping/dispenser/{iddispenser}/lock',
+    },
+    AddProduct: {
+        method: 'PUT',
+        url: baseUrl + '/shopping/cart/{idcart}/add',
+    }
 };
 
 function replaceParameters(url, parameters) {
@@ -31,18 +53,18 @@ function replaceParameters(url, parameters) {
                     delete parameters[paramName];
                 }
                 else {
-                    return false;
+                    return null;
                 }
             });
         }
 
         if (!url.includes('{'))
-            return true;
+            return url;
 
-        return false;
+        return null;
     }
     else {
-        return true;
+        return url;
     }
 }
 
@@ -54,10 +76,11 @@ export async function makeAPIRequest(operation, serializedData, parameters, isPr
     }
 
     const method = API_ENDPOINTS[operation].method;
-    let url = API_ENDPOINTS[operation].url;
+    var url = API_ENDPOINTS[operation].url;
 
     if (parameters != null) {
-        if (!replaceParameters(url, parameters)) {
+        url = replaceParameters(url, parameters);
+        if (url === null) {
             return { code: 0 };
         }
 
