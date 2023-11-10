@@ -1,6 +1,6 @@
 import { MutatingDots } from  'react-loader-spinner'
 
-function Loader() {
+function Loader(props) {
     return (
         <MutatingDots
             height="100"
@@ -10,7 +10,7 @@ function Loader() {
             radius='12.5'
             ariaLabel="mutating-dots-loading"
             wrapperStyle={{}}
-            wrapperClass="loader"
+            wrapperClass={`loader ${(!!props.selector) ? props.selector : ''}`}
             visible={true}
         />
     );

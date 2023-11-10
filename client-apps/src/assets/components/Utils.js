@@ -5,23 +5,41 @@ export const encryptPassword = (password) => {
     return sha256(password);
 }
 
+const baseUrl = 'https://api.ubishop.it';
+
 const API_ENDPOINTS = {
     Login: {
         method: 'POST',
-        url: 'https://api.ubishop.it/auth/login',
+        url: baseUrl + '/auth/login',
     },
     Signup: {
         method: 'POST',
-        url: 'https://api.ubishop.it/auth/signup',
+        url: baseUrl + '/auth/signup',
     },
     GetAccountInformation: {
         method: 'GET',
-        url: 'https://api.ubishop.it/account',
+        url: baseUrl + '/account',
     },
     GetDigitalLabel: {
         method: 'GET',
-        url: 'https://api.ubishop.it/shopping/dispenser/{iddispenser}/scan',
+        url: baseUrl + '/shopping/dispenser/{iddispenser}/scan',
     },
+    GenerateCart: {
+        method: 'POST',
+        url: baseUrl + '/shopping/cart/create',
+    },
+    GetCart: {
+        method: 'GET',
+        url: baseUrl + '/shopping/cart/{idcart}',
+    },
+    LockDispenser: {
+        method: 'PUT',
+        url: baseUrl + '/shopping/dispenser/{iddispenser}/lock',
+    },
+    AddProduct: {
+        method: 'PUT',
+        url: baseUrl + '/shopping/cart/{idcart}/add',
+    }
 };
 
 function replaceParameters(url, parameters) {
