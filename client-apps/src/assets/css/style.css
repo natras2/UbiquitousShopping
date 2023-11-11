@@ -305,6 +305,11 @@ a:not(.btn) {
     height: 100%;
 }
 
+#personalarea>#profile .btn {
+    font-size: 15px;
+    font-weight: 600;
+}
+
 /* ------------------------ CART ------------------------ */
 #cart>.welcomepage {
     display: flex;
@@ -549,10 +554,39 @@ a:not(.btn) {
     margin-top: 15px;
 }
 
+#personalarea>#home .account-overview {
+    display: flex;
+    justify-content: space-between;
+    align-items:center;
+}
+#personalarea>#home .account-overview .sa-id {
+    font-size:14px;
+    color:#858585;
+}
+#personalarea>#home .account-overview .sa-id svg {
+    margin-top:-4px;
+    margin-right:4px;
+}
+#personalarea>#home .account-overview > .logout-button {
+    display: flex;
+    justify-content: center;
+    align-items:center;
+    height:42px;
+    width: 43px;
+    background-color:#8a8a8a;
+    color: #f6f6f6;
+    border-radius: 25px;
+    box-shadow: 2px 3px 5px 1px #dfdfdf;
+    font-weight:600;
+    cursor:pointer;
+    font-size:15px;
+}
+
 /*******************************
  ********* COMPONENTS **********
  *******************************/
-#customer-bottom-navbar {
+#customer-bottom-navbar,
+#salesassistant-bottom-navbar {
     position: absolute;
     bottom: 0;
     left: 0;
@@ -568,30 +602,36 @@ a:not(.btn) {
     color: #9DB2CE;
 }
 
-#customer-bottom-navbar>div {
+#customer-bottom-navbar>div,
+#salesassistant-bottom-navbar>div {
     text-align: center;
     min-width: 65px;
     cursor: pointer;
 }
 
-#customer-bottom-navbar>div.active {
+#customer-bottom-navbar>div.active,
+#salesassistant-bottom-navbar>div.active {
     color: #123B14 !important;
 }
 
-#customer-bottom-navbar>div svg {
+#customer-bottom-navbar>div svg,
+#salesassistant-bottom-navbar>div svg {
     font-size: 20px;
 }
 
-#customer-bottom-navbar>div .item-name {
+#customer-bottom-navbar>div .item-name,
+#salesassistant-bottom-navbar>div .item-name {
     margin-top: .5rem;
 }
 
-#customer-bottom-navbar>.cart-button {
+#customer-bottom-navbar>.cart-button,
+#salesassistant-bottom-navbar>.checkout-button {
     position: relative;
     width: 90px;
 }
 
-#customer-bottom-navbar>.cart-button>div {
+#customer-bottom-navbar>.cart-button>div,
+#salesassistant-bottom-navbar>.checkout-button>div {
     position: absolute;
     width: 100px;
     height: 100px;
@@ -605,7 +645,8 @@ a:not(.btn) {
     border: 8px solid white;
 }
 
-#customer-bottom-navbar>.cart-button>div>div {
+#customer-bottom-navbar>.cart-button>div>div,
+#salesassistant-bottom-navbar>.checkout-button>div>div {
     background-color: #123B14;
     width: calc(100% - 12px);
     height: calc(100% - 12px);

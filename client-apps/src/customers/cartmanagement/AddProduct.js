@@ -62,7 +62,7 @@ function AddProduct(props) {
     }
 
     const handleBackToCart = () => {
-        navigator('..');
+        navigator('..', { replace: true });
     }
 
     const handleLockDispenser = async () => {
@@ -91,7 +91,7 @@ function AddProduct(props) {
         }, true);
 
         if (response.code === 200) {
-            navigator('..');
+            navigator('..', { replace: true });
         }
         else {
             console.error(`API request failed with code ${response.code}:`, response.body);

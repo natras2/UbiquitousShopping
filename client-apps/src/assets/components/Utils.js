@@ -39,6 +39,10 @@ const API_ENDPOINTS = {
     AddProduct: {
         method: 'PUT',
         url: baseUrl + '/shopping/cart/{idcart}/add',
+    },
+    CloseCart: {
+        method: 'PUT',
+        url: baseUrl + '/checkout/close/{idcart}',
     }
 };
 

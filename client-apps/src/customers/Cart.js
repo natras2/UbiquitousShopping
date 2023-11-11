@@ -32,7 +32,7 @@ export function ProductDigitalLabel() {
     }, [iddispenser]);
 
     const handleGoBack = () => {
-        navigator('..');
+        navigator('..', { replace: true });
     }
     return (
         <div className="page">
@@ -70,6 +70,22 @@ function CartManagement(props) {
         }
         fetchData();
     });
+
+    const handleCheckout = async () => {
+        setProcessing(true);
+        const response = await makeAPIRequest('CloseCart', null, {
+            idcart: sessionStorage.getItem('cart_id')
+        }, true);
+
+        if (response.code === 200) {
+            sessionStorage.removeItem('cart_id');
+            navigator("../home", { replace: true });
+        }
+        else {
+            console.error(`API request failed with code ${response.code}:`, response.body);
+        }
+        setProcessing(false);
+    }
 
 
     const showDigitalLabel = async (dispenser_id) => {
@@ -120,7 +136,7 @@ function CartManagement(props) {
                         <div className="label">Total</div>
                         <div className="value">{formatter.format(total)}</div>
                     </div>
-                    <div className="button">Checkout</div>
+                    <div className="button" onClick={() => handleCheckout()}>Checkout</div>
                 </div>
             </div>
             <div className="product-list">

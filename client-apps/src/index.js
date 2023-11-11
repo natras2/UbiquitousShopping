@@ -7,12 +7,13 @@ import App from './App';
 import Error from './Error';
 
 import { PasswordForgotten, default as Login } from './customers/Login';
-
-import SALogin from './salesassistants/Login';
 import Register from './customers/Register';
 import PersonalArea from './customers/PersonalArea';
 import Cart, { ProductDigitalLabel } from './customers/Cart';
 import AddProduct from './customers/cartmanagement/AddProduct';
+
+import SALogin from './salesassistants/Login';
+import SAPersonalArea from './salesassistants/PersonalArea';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -40,6 +41,11 @@ root.render(
                 <Route path='sa'>
                     <Route index element={<App isSA='true'/>} />
                     <Route path='login' element={<SALogin />} />
+                    <Route path='home' element={<SAPersonalArea page='Home' />} />
+                    <Route path='validate' element={<SAPersonalArea page='Validate' />} />
+                    <Route path='checkout' element={<SAPersonalArea page='Checkout' />} />
+                    <Route path='carts' element={<SAPersonalArea page='Carts' />} />
+                    <Route path='dispensers' element={<SAPersonalArea page='Dispensers' />} />
                 </Route>
 
                 {/* Fallback error route */}
