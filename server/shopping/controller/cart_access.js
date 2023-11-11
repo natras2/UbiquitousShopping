@@ -1,5 +1,3 @@
-//const jwt = require('jsonwebtoken');
-//const bcrypt = require('bcrypt');
 const Cart = require('../../model/cart');
 const Product = require('../../model/product');
 const MerchLot = require('../../model/merchlot');

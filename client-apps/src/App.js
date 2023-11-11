@@ -3,6 +3,7 @@ import illustration from './assets/images/illustrations/undraw_shopping_app_flsj
 import DefaultButton from './assets/components/DefaultButton';
 import { useLocation, Link } from 'react-router-dom';
 import { FaGoogle, FaApple } from 'react-icons/fa6';
+import { useEffect } from 'react';
 
 function LandingButtons(params) {
     const salesAssistant = (
@@ -65,6 +66,10 @@ function Landing(params) {
 function App(props) {
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
+    
+    useEffect(() => {
+        sessionStorage.clear();
+    }, []);
 
     return (
         <Landing isSA={props.isSA || (searchParams.get('u') === 'sa' ? true : false )}/>

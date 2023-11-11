@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from "react-router-dom";
 import DefaultButton from "../assets/components/DefaultButton";
 import InputField from '../assets/components/InputField';
@@ -95,6 +95,10 @@ export default function Register() {
         password: '',
     });
     const [step, setStep] = useState(1);
+    
+    useEffect(() => {
+        sessionStorage.clear();
+    }, []);
 
     function handleSubmit(e) {
         console.log("WHY AM I HERE!?");

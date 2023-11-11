@@ -33,9 +33,17 @@ Store ID: query parameter (req.query.store_id)
 */ 
 shoppingRouter.post('/cart/create', async (req, res) => {
     try {
-        let new_cart = await CartCreation(req.uid, req.query.store_id);
-        if (new_cart == null)
-            res.status(400).send('The customer already has an open cart');
+        let [new_cart, conflicting_cart_id] = await CartCreation(req.uid, req.query.store_id);
+        if (new_cart == null) {
+            if (conflicting_cart_id > 0) {
+                res.status(409).json({ 
+                    message: 'The customer already has an open cart', 
+                    id: conflicting_cart_id 
+                });
+            }
+            else 
+                res.sendStatus(400);
+        }
         else
             res.status(201).json(new_cart);
     }  

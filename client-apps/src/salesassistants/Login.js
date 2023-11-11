@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import DefaultButton from "../assets/components/DefaultButton";
 import InputField from "../assets/components/InputField";
 import { encryptPassword } from "../assets/components/Utils";
@@ -8,6 +8,10 @@ function Login() {
         email: '',
         password: '',
     });
+    
+    useEffect(() => {
+        sessionStorage.clear();
+    }, []);
 
     function handleSubmit(e) {
         // Prevent the browser from reloading the page

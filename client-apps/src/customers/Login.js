@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import DefaultButton from "../assets/components/DefaultButton";
 import InputField from "../assets/components/InputField";
@@ -37,6 +37,10 @@ export default function Login() {
     });
     const [processing, setProcessing] = useState(false);
     
+    useEffect(() => {
+        sessionStorage.clear();
+    }, []);
+
     const navigate = useNavigate();
 
     async function handleSubmit(e) {

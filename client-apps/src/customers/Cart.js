@@ -199,7 +199,7 @@ export default function Cart(props) {
             store_id: JSON.parse(sessionStorage.getItem('store')).id
         }, true);
 
-        if (response.code === 201) {
+        if (response.code === 201 || response.code === 409) {
             console.log(response.body);
             sessionStorage.setItem('cart_id', response.body.id);
             setOpen(true);

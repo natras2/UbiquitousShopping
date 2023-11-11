@@ -12,7 +12,7 @@ async function CartCreation(customer_id, store_id) {
     })
 
     if(open_cart != null)
-        return null;
+        return [null, open_cart.id];
 
     const new_cart = await Cart.create({
         generation_date: date,
@@ -21,7 +21,7 @@ async function CartCreation(customer_id, store_id) {
         store_id: store_id
     });
     
-    return new_cart;
+    return [new_cart];
 }
 
 module.exports = CartCreation;
