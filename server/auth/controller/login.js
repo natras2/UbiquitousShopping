@@ -36,7 +36,7 @@ async function SalesAssistantLogin(email, password) {
             id: salesassistant.id,
             type: "SalesAssistant"
         }
-        return jwt.sign(token_data, secretKey, { expiresIn: '1h' });
+        return jwt.sign(token_data, secretKey, { expiresIn: '2h' });
     }
     return;
 }
