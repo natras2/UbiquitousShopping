@@ -14,6 +14,7 @@ import AddProduct from './customers/cartmanagement/AddProduct';
 
 import SALogin from './salesassistants/Login';
 import SAPersonalArea from './salesassistants/PersonalArea';
+import { DispenserOverview } from './salesassistants/personalarea/Dispensers';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -45,7 +46,10 @@ root.render(
                     <Route path='validate' element={<SAPersonalArea page='Validate' />} />
                     <Route path='checkout' element={<SAPersonalArea page='Checkout' />} />
                     <Route path='carts' element={<SAPersonalArea page='Carts' />} />
-                    <Route path='dispensers' element={<SAPersonalArea page='Dispensers' />} />
+                    <Route path='dispensers'>
+                        <Route index element={<SAPersonalArea page='Dispensers' />} />
+                        <Route path=':iddispenser' element={<DispenserOverview />} />
+                    </Route>
                 </Route>
 
                 {/* Fallback error route */}
