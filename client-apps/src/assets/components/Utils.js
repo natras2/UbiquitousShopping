@@ -1,5 +1,16 @@
 import { sha256 } from 'js-sha256';
-import axios from 'axios'; 
+import axios from 'axios';
+
+export function checkPassword(password) {
+    // Regular expression to enforce password criteria
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{8,}$/;
+
+    return passwordRegex.test(password);
+}
+
+export function capitalize(inputString) {
+    return inputString.replace(/\b\w/g, char => char.toUpperCase());
+}
 
 export const encryptPassword = (password) => {
     return sha256(password);
@@ -43,6 +54,18 @@ const API_ENDPOINTS = {
     CloseCart: {
         method: 'PUT',
         url: baseUrl + '/checkout/close/{idcart}',
+    },
+    GetDispensersList: {
+        method: 'GET',
+        url: baseUrl + '/store/{idstore}/dispenser',
+    },
+    GetDispenser: {
+        method: 'GET',
+        url: baseUrl + '/store/{idstore}/dispenser/{iddispenser}',
+    },
+    RefillDispenser: {
+        method: 'PUT',
+        url: baseUrl + '/store/{idstore}/dispenser/{iddispenser}/refill',
     }
 };
 
@@ -74,8 +97,8 @@ function replaceParameters(url, parameters) {
 
 export async function makeAPIRequest(operation, serializedData, parameters, isProtected) {
     if (!API_ENDPOINTS[operation]) {
-        return { 
-            code: 0 
+        return {
+            code: 0
         };
     }
 
@@ -104,7 +127,7 @@ export async function makeAPIRequest(operation, serializedData, parameters, isPr
                 data: serializedData,
                 headers: (isProtected) ? { Authorization: `Bearer ${sessionStorage.getItem('token')}` } : undefined,
             });
-        } 
+        }
         else {
             response = await axios({
                 method: method,
@@ -117,14 +140,14 @@ export async function makeAPIRequest(operation, serializedData, parameters, isPr
             code: response.status,
             body: response.data
         };
-    } 
+    }
     catch (error) {
         if (error.response) {
             return {
                 code: error.response.status,
                 body: error.response.data
             };
-        } 
+        }
         else {
             console.error('No response to report', error);
             return {

@@ -44,11 +44,15 @@ export default function PersonalArea(props) {
     const navigate = useNavigate();
 
     useEffect(() => {
+        setPage(props.page);
+    }, [props.page]);
+
+    useEffect(() => {
         async function fetchData() {
             const response = await makeAPIRequest('GetAccountInformation', null, null, true);
 
             if (response.code === 200) {
-                sessionStorage.setItem('store', JSON.stringify({ id: 1, name: 'Torino Lingotto', }));
+                sessionStorage.setItem('store', JSON.stringify({ id: 2, name: 'Cesena Machiavelli', }));
                 sessionStorage.setItem('account', JSON.stringify(response.body));
             }
             else {
