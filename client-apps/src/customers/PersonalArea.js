@@ -52,7 +52,7 @@ export default function PersonalArea(props) {
             const response = await makeAPIRequest('GetAccountInformation', null, null, true);
 
             if (response.code === 200) {
-                sessionStorage.setItem('store', JSON.stringify({ id: 2, name: 'Cesena Machiavelli', }));
+                sessionStorage.setItem('store', JSON.stringify({ id: 1, name: 'Cesena Machiavelli', }));
                 sessionStorage.setItem('account', JSON.stringify(response.body));
             }
             else {

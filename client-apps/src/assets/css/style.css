@@ -660,6 +660,16 @@ a:not(.btn) {
     color: gray;
     font-size:15px;
 }
+#personalarea>#home > .store-overview .alert-item > .generalities > div {
+    flex-grow: 0;
+    flex-shrink: 0;
+}
+#personalarea>#home > .store-overview .alert-item > .generalities > div.merch {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    flex-shrink: unset;
+}
 #personalarea>#home > .store-overview .alert-item > .alerts {
     padding:.3rem 1rem;
 }
