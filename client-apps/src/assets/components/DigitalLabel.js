@@ -16,7 +16,7 @@ function DigitalLabel(props) {
         nutritionalList.push(
             <div key={nutritionalInfo[i]} className="nutritional-record">
                 <div className="nutritional-property">{nutritionalInfo[i].replace('_', ' ')}</div>
-                <div className="nutritional-value">{props.data.merch.nutritional_info[nutritionalInfo[i]]}</div>
+                <div className="nutritional-value">{("" + props.data.merch.nutritional_info[nutritionalInfo[i]]).split(" ")[0]}</div>
             </div>
         );
     }

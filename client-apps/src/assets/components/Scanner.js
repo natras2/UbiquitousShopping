@@ -25,16 +25,15 @@ function Scanner(props) {
     return (
         <div>
             {(!!props.goBack) && 
-                <div className="back-button mb-3" onClick={() => props.goBack()}> 
+                <div className="back-button mb-3 text-white" onClick={() => props.goBack()}> 
                     <FaArrowLeft /> {props.textBack}
                 </div>
             }
             <div className="scanner">
-                <div className="title">Scan a dispenser QR code</div>
-                <div className="camera-wrapper">
+                <div>
                     <QrReader
                         facingmode='rear'
-                        delay={500}
+                        delay={1000}
                         onError={handleError}
                         onScan={handleScan}
                         className="camera"
@@ -43,6 +42,9 @@ function Scanner(props) {
                             video: { facingMode: "environment" }
                         }}
                     />
+                </div>
+                <div className="title">Scan a dispenser QR code</div>
+                <div className="camera-wrapper">
                 </div>
                 <div className="description-box">
                     <FaCircleInfo />
