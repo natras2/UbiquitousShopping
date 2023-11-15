@@ -44,6 +44,11 @@ app.use('/history', ValidateToken, historyRouter);
 const checkoutRouter = require('./checkout/endpoint');
 app.use('/checkout', ValidateToken, checkoutRouter);
 
+app.get('/specification', function (req, res) {
+    const file = `./config/openapi.yaml`;
+    res.download(file);
+});
+
 app.get('/', function (req, res) {
     const html = `
         <!DOCTYPE html>
@@ -61,7 +66,7 @@ app.get('/', function (req, res) {
                     <p style="font-weight: 300;">Unlock a new ubiquitous shopping experience: UbiShop has been created to help retail customers to be more independent and autonomous in their purchase experiences, by tracking all the relevant information about products, supporting the local shops with the goods provision and the customization of service.</p>                    
                     <h3 style="color: #7C9805;font-weight: 400;">Discover what you can do</h3>
                     <p style="font-weight: 300;">Download the OpenAPI Specification file or <a href="https://github.com/natras2/UbiquitousShopping/wiki" >check the documentation</a>.</p>
-                    <a href="/openapi" style="display: block;color: #efefef;background-color: #123b14;text-decoration: none;font-weight: 600;width: 254px;text-align: center;padding: .8rem;border: 1px solid #bcbcbc;border-radius: 41px;font-size: 14px;">DOWNLOAD THE SPECIFICATION</a>
+                    <a href="/specification" target="_blank"  style="display: block;color: #efefef;background-color: #123b14;text-decoration: none;font-weight: 600;width: 254px;text-align: center;padding: .8rem;border: 1px solid #bcbcbc;border-radius: 41px;font-size: 14px;">DOWNLOAD THE SPECIFICATION</a>
                 </div>
             </body>
         </html>

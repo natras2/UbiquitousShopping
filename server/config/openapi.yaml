@@ -1,0 +1,218 @@
+openapi: 3.0.0
+info:
+  title: UbiShop API
+  version: 1.0.0
+  description: API for UbiShop project
+
+servers:
+  - url: 'https://api.ubishop.it'
+
+paths:
+  /auth/login:
+    post:
+      summary: User Login
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email_address:
+                  type: string
+                password:
+                  type: string
+      responses:
+        '200':
+          description: Successful login
+
+  /auth/signup:
+    post:
+      summary: User Signup
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                surname:
+                  type: string
+                sex:
+                  type: string
+                address:
+                  type: string
+                id_type:
+                  type: string
+                id_number:
+                  type: string
+                email_address:
+                  type: string
+                password:
+                  type: string
+      responses:
+        '200':
+          description: Successful signup
+
+  /account:
+    get:
+      summary: Get Account Information
+      security:
+        - BearerAuth: []
+
+  /shopping/dispenser/{iddispenser}/scan:
+    get:
+      summary: Get Digital Label
+      parameters:
+        - name: iddispenser
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: store_id
+          in: query
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+      security:
+        - BearerAuth: []
+
+  /shopping/cart/create:
+    post:
+      summary: Generate Cart
+      parameters:
+        - name: store_id
+          in: query
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Cart generated successfully
+
+  /shopping/cart/{idcart}:
+    get:
+      summary: Get Cart
+      parameters:
+        - name: idcart
+          in: path
+          required: true
+          schema:
+            type: string
+      security:
+        - BearerAuth: []
+
+  /shopping/dispenser/{iddispenser}/lock:
+    put:
+      summary: Lock Dispenser
+      parameters:
+        - name: iddispenser
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: idstore
+          in: query
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+      security:
+        - BearerAuth: []
+
+  /shopping/cart/{idcart}/add:
+    put:
+      summary: Add Product to Cart
+      parameters:
+        - name: idcart
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: dispenser_id
+          in: query
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+      security:
+        - BearerAuth: []
+
+  /checkout/close/{idcart}:
+    put:
+      summary: Close Cart
+      parameters:
+        - name: idcart
+          in: path
+          required: true
+          schema:
+            type: string
+      security:
+        - BearerAuth: []
+
+  /store/{idstore}/dispenser:
+    get:
+      summary: Get Dispensers List
+      parameters:
+        - name: idstore
+          in: path
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+      security:
+        - BearerAuth: []
+
+  /store/{idstore}/dispenser/{iddispenser}:
+    get:
+      summary: Get Dispenser
+      parameters:
+        - name: idstore
+          in: path
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+        - name: iddispenser
+          in: path
+          required: true
+          schema:
+            type: string
+      security:
+        - BearerAuth: []
+
+  /store/{idstore}/dispenser/{iddispenser}/refill:
+    put:
+      summary: Refill Dispenser
+      parameters:
+        - name: idstore
+          in: path
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+        - name: iddispenser
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: idmerchlot
+          in: query
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+      security:
+        - BearerAuth: []
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
